@@ -19,7 +19,8 @@ body {
 }
 
 .wrapper {
-  width: 640px;
+  width: 80%;
+  min-height: 600px;
   margin: 0 auto;
   background: #DEDEDE;
   -webkit-border-radius: 8px;
