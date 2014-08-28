@@ -9,7 +9,17 @@
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <style>
+			li {
+				display: block;
+			}
+			i.insert{
+				border: 1px solid lightgray;
+				border-radius: 4px;
+				color: lightgray;
+				cursor: pointer;
+			}
+		</style>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -27,7 +37,75 @@
         </ul>
       </header>
       <section>
-        <p>Demo</p>
+        <div>
+          <h2>Demo</h2>
+          <hr>
+    			<!-- This is the input which record all the checked items, could be hidden in a form -->
+            	<br><b>selected items: </b><input type='text' size='100' id='myOptions'><br>
+            	<ul>
+            		<li id="1">
+            			<input type="radio" name="top" value="root" checked="1" onchange="refresh()"><b> root </b>
+            			<i class="insert" onclick="insertChild('1')"> + </i>    <!-- root -->
+            		</li>
+            	</ul>
+    		</div>
+    		
+    		<script>			
+    			function refresh() {
+        			var stack = new Array();            // stack used for traversing the tree nodes
+        			var result = document.getElementById('myOptions');
+        			result.value = '';                  // clear the result text field
+            		stack.push('1');       				// push the top level radio into the stack
+        			var first = true;
+    
+        			while(stack.length > 0){             // go through each node with a depth-first approach
+            			var currentId = stack.pop();
+            			var currentNode = document.getElementById(currentId).childNodes[0];
+            			var subList = document.getElementsByName(currentId);    // all the child nodes of current node
+        
+            			for (var j=subList.length-1; j>=0; j--){
+                			if(currentNode.checked == false) {
+                    			subList[j].checked = false;     // if parent node is not checked, children are not either
+                    			subList[j].disabled = true;     // if parent node is not checked, children can not be checked
+                			}
+                			else{
+                    			subList[j].disabled = false;    // if parent node is checked, children are enabled for selecting
+                			}
+                			stack.push(subList[j].parentNode.id);      // push all the children into stack
+            			}
+            			if(currentNode.checked == true) {
+                			if(! first) {
+                    			result.value += ',';        // if some node has already been checked, separate following nodes with ','
+                			}
+                			else{
+                    			first = false;              // find first checked node, next time need a ',' to separate nodes
+                			}
+                			result.value += currentNode.nextSibling.innerHTML; // record the id of this checked node in the result text field
+            			}
+        			}
+    			}
+    			
+    			function insertChild(id){					// insert a option to the radio group whose name is current id
+    				var parent = document.getElementById(id);
+    				var children = document.getElementsByName(id);
+    				var seq = id +''+ (children.length+1);
+    				if(children.length<9){					// only 9 options allowed for each group
+    					var name = prompt("Name of the new option :", "");		// user input option name
+    					var radioHtml = "<li id='" + seq + "'><input type='radio' name='" + id + "' value='"+name+"' onchange='refresh()'><b> "+name+" </b><i class='insert' onclick='insertChild(" + seq+")'> + </i></li>";
+    					if(children.length === 0) {
+    						var ul = document.createElement('ul');				// no child yet, insert ul first
+    						parent.appendChild(ul);
+    						ul.innerHTML = radioHtml;							// insert as the first child
+    					}
+    					else {
+    						children[0].parentNode.parentNode.innerHTML += radioHtml;	// insert as the last child
+    					}	
+    				}
+    				else {
+    					alert('can not insert more than 9 items to each radio group.');
+    				}
+    			}
+    		</script>
       </section>
     </div>
     <footer>
