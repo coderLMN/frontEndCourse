@@ -10,7 +10,7 @@
 		<script>
 		// Using the location.hash property to change the anchor part
 			function changeUrl() {
-			    document.getElementById("demo").innerHTML = loadPage(location.hash.replace('#','') + '.html');
+			    document.getElementById("demo").innerHTML = loadPage(location.href);
 			}
 
 			function loadPage(href) {
