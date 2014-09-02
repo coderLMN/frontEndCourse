@@ -4,13 +4,13 @@
 		<a href="#home">home</a>
 		<a href="#one">one</a>
 		<a href="#two">two</a>
-		<a href="http://qiepa.com/listByDate/2014-08" style="display:none">test</a>
+		<a href="#http://qiepa.com/listByDate/2014-08" style="display:none">test</a>
 		<div id="demo" style="border: 1px solid gray; min-height: 100px; min-width: 400px;"></div>
 
 		<script>
 		// Using the location.hash property to change the anchor part
 			function changeUrl() {
-			    document.getElementById("demo").innerHTML = loadPage(location.href);
+			    document.getElementById("demo").innerHTML = loadPage(location.hash.replace('#',''));
 			}
 
 			function loadPage(href) {
