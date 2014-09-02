@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<body onhashchange="changeUrl()">
+	  <br>
+	  <h1> Front & back end interaction Demo </h1>
+	  <br>
+		<a href="#home">home</a>
+		<a href="#one">one</a>
+		<a href="#two">two</a>
+		<a href="#emojis" id="temp">github emojis</a>
+		<div id="demo" style="border: 1px solid gray; min-height: 100px; min-width: 400px; display:none;"></div>
+
+		<script>
+			var divDemo = document.getElementById("demo");
+			function changeUrl() {
+				var url = location.hash.replace('#','');
+				if(url == 'emojis'){
+					remoteApi('https://api.github.com/emojis');
+				}
+				else{
+					localPartial(url + '.html');
+				}
+			}
+
+			function remoteApi(url) {
+				var apiMap = JSON.parse(loadPage(url));
+				var inner = '';
+			    for(var key in apiMap) {
+			    	console.log(key);
+			    	inner += "<figure style='display: inline-block;'><img src='" + apiMap[key] + "' width='100' height='100'><figcaption>" + key + "</figcaption></figure>";
+			    }
+			    divDemo.innerHTML =  inner;
+			    divDemo.style.display = 'block';
+			}
+			
+			function localPartial(partial) {
+				divDemo.innerHTML = loadPage(partial);
+				divDemo.style.display = 'block';
+			}
+			
+			function loadPage(href) {
+		        var xmlhttp = new XMLHttpRequest();
+    			xmlhttp.open("GET", href, false);
+		        xmlhttp.send();
+        		return xmlhttp.responseText;
+    		}
+		</script>
+	</body>
+</html>
