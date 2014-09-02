@@ -8,7 +8,7 @@
 		<a href="#one">one</a>
 		<a href="#two">two</a>
 		<a href="#emojis" id="temp">github emojis</a>
-		<div id="demo" style="border: 1px solid gray; min-height: 100px; min-width: 400px; display:none;"></div>
+		<div id="demo" style="border: 1px solid gray; min-height: 100px; min-width: 400px;"></div>
 		<br>
 		<h4>For description, see <a href="https://github.com/coderLMN/frontEndCourse/blob/master/architecture.md">Source Code</a></h4>
 		<script>
@@ -31,12 +31,10 @@
 			    	inner += "<figure style='display: inline-block;'><img src='" + apiMap[key] + "' width='100' height='100'><figcaption>" + key + "</figcaption></figure>";
 			    }
 			    divDemo.innerHTML =  inner;
-			    divDemo.style.display = 'block';
 			}
 			
 			function localPartial(partial) {
 				divDemo.innerHTML = loadPage(partial);
-				divDemo.style.display = 'block';
 			}
 			
 			function loadPage(href) {
