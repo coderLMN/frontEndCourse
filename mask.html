@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<style>
+      html {
+		height:100%;
+		background:-moz-radial-gradient(top center, #a0bddd 0%, #0064d4 100%);
+		background:-webkit-radial-gradient(top center, #a0bddd 0%, #0064d4 100%);
+		background:radial-gradient(top center, #a0bddd 0%, #0064d4 100%);
+	  }
+	  video {
+		display:block;
+		float: left;
+	  }
+	  text {
+		font-family:Arial Black, sans-serif;
+		font-size:175px;
+		text-anchor: middle;
+		fill:#fff;
+	  }
+	  #c1 {
+      	display: none;
+      }
+      #c2 {
+        clip-path:url(#myClip)
+      }
+    </style>
+  </head>
+  <body onload="processor.doLoad()">
+        <video id="video" controls="true" height="300" width="500">
+        	<source src="video.ogg" type="video/ogg">
+        	<source src="video.mp4" type="video/mp4">
+			Sorry, but your browser does not support HTML5 video.
+        </video>
+    	<svg width="720" height="450">
+    		<defs>
+				<clipPath id="myClip">
+					<text x="360" y="220">VIDEO</text>
+				</clipPath>
+			</defs>
+			<image id="c2" x="20" y="20" width="720" height="450" xlink:href="">
+		</svg>
+        <canvas id="c1" width="720" height="450"></canvas>
+		<script>
+		var processor = {
+  			timerCallback: function() {
+  				window.URL = window.URL || window.webkitURL;
+				function blobify_dataurl(dataURL){
+    				var parts = dataURL.match(/data:([^;]*)(;base64)?,([0-9A-Za-z+/]+)/);
+					//assume base64 encoding
+					var binStr = atob(parts[3]);
+					//convert to binary in ArrayBuffer
+					var buf = new ArrayBuffer(binStr.length);
+					var view = new Uint8Array(buf);
+					for(var i = 0; i < view.length; i++) {
+						view[i] = binStr.charCodeAt(i);
+					}
+					var blob = new Blob([view], {type: parts[1]}); 
+					//create blob with mime type, create URL for it
+					var url = URL.createObjectURL(blob);
+					return url;
+				}
+    			if (this.video.paused || this.video.ended) {
+      				return;
+    			}
+    			this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
+    			var img = blobify_dataurl(this.c1.toDataURL());
+				this.c2.setAttributeNS("http://www.w3.org/1999/xlink", "href", img);
+    			var self = this;
+    			setTimeout(function () {
+    				URL.revokeObjectURL(img);
+        			self.timerCallback();
+      			}, 40);
+  			},
+  			doLoad: function() {
+    			this.video = document.getElementById("video");
+    			this.c1 = document.getElementById("c1");
+    			this.ctx1 = this.c1.getContext("2d");
+    			this.c2 = document.getElementById("c2");
+    			var self = this;
+    			this.video.addEventListener("play", function() {
+        			self.width = self.video.videoWidth;
+        			self.height = self.video.videoHeight;
+        			self.timerCallback();
+      			}, false);
+  			}
+		};
+		</script>
+  </body>
+</html>
