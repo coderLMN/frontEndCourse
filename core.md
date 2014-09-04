@@ -28,7 +28,7 @@ HTML5支持内嵌SVG，SVG又支持嵌入CSS和JS，使得SVG成为了极其强�
 
 这次会用SVG动画和根据结构化数据动态绘制SVG图为例子，讲述SVG的作用和用法。
 
-
+演示： http://coderlmn.github.io/frontEndCourse/mask.html
 ###JS
 
 JS主要是融入在前面三部分内容中讲述，另外需要重点回顾一下DOM树结构及其访问方式。必要时会复习一下树结构及其核心算法。
