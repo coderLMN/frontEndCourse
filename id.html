@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style>
+		div {
+			padding-bottom: 20px;
+		}
+		input, textarea , button {
+			vertical-align: bottom;
+		}
+		svg {
+			background-color: lightyellow;
+			border: solid 2px gold;
+			border-radius: 10px;
+			font-family: 微软雅黑, Verdana, Arial;
+		}
+		polygon {
+			fill:red;
+			stroke:none;
+			fill-opacity: 0.8; 
+		}
+		circle {
+			stroke-opacity: 0.8;
+		}
+		text {
+			font-size:30px;
+		}
+		line {
+			stroke:red;
+			stroke-width:4;
+		}
+		#notice {
+			writing-mode: tb; 
+			font-size:15px;
+			glyph-orientation-vertical: 90;
+		}
+		#type {
+			font-size:50px;
+			text-anchor: middle;
+		}
+		#stamp {
+			font-size:40px;
+			fill-opacity: 0.8;
+		}
+	</style>
+	<script>
+		function submit() {
+			var idType = document.getElementById('idType');
+			var stampTitle = document.getElementById('stampTitle');
+			var stampName = document.getElementById('stampName');
+			var content = document.getElementById('content');
+			var type = document.getElementById('type');
+			var stamp = document.getElementById('stamp');
+			var title = document.getElementById('title');
+			var name = document.getElementById('name');
+			var description = document.getElementById('description');
+			var foot = document.getElementById('foot');
+			var typeValue = idType.value.substring(0,7);
+			var titleValue = stampTitle.value.substring(0,7);
+			var nameValue = stampName.value.substring(0,3);
+			stamp.style.letterSpacing = 10*(7 - titleValue.length) + 'px';
+			name.style.letterSpacing = 10*(3 - nameValue.length) + 'px';
+			type.innerHTML = typeValue;
+			title.innerHTML = titleValue;
+			foot.innerHTML = titleValue;
+			name.innerHTML = nameValue;
+			description.innerHTML = '';
+			var paras = content.value.split('\n');
+			for(var i in paras) {
+				if(i<3){
+					description.innerHTML += '<tspan x="100" dy="50">'+paras[i]+'</tspan>';
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div>
+		<input id="idType" type="text" name="idType" autofocus placeholder="证明类型（最多7字）" onchange="submit();">
+		<input id="stampTitle" type="text" name="stampTitle" placeholder="证明单位（最多7字）" onchange="submit();">
+		<input id="stampName" type="text" name="stampName" placeholder="印章名称（最多3字）" onchange="submit();">
+		<textarea id="content" name="content"  placeholder="证明文字内容（最多3行）" onchange="submit();"></textarea>
+		<button>OK</button>
+	</div>
+	<svg x="10" y="50" height="600" width="800">
+		<text x="30" y="240" fill="lightblue" id="notice">---------- 重要证件，注意保管 ----------</text>
+		<text x="400" y="80" fill="red" id="type">证明类型</text>
+		<line x1="80" y1="100" x2="720" y2="100"/>
+		<text x="100" y="120" fill="black" id="description">
+			<tspan x="100" dy="50">证明文字详细内容，最多三行。</tspan>
+		</text>
+		<text x="120" y="360" fill="black">此致</text>
+		<text x="480" y="420" fill="darkgray" id="foot">颁发此证的单位</text>
+		<text x="480" y="500" fill="darkgray" id="date"></text>
+  		<circle cx="590" cy="450" r="120" stroke="red" stroke-width="8" fill="none"/>
+  		<polygon points="590,390 550,500 650,430 530,430 630,500"/>
+  		<defs>
+        	<path id="myTextPath" d="M510,475 a50,62 0 0,1 160, 0"/>
+    	</defs>
+    	<text fill="red" id="stamp">
+    		<textPath id="title" xlink:href="#myTextPath" >颁发此证的单位</textPath>
+    	</text>
+    	<line x1="520" y1="510" x2="660" y2="510"/>
+    	<text id="name" x="542" y="545" fill="red">印章名</text>
+    	啊，你的浏览器不支持SVG！你out啦...  
+	</svg>
+	<script>
+		var date = new Date();
+		var issueDate = document.getElementById('date');
+		issueDate.innerHTML = date.getFullYear()+'年'+(date.getMonth()+1)+'月'+date.getDate()+'日';
+	</script> 
+</body>
+</html>
+
