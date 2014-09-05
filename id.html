@@ -30,6 +30,9 @@
 			stroke:red;
 			stroke-width:4;
 		}
+		image {
+			border-radius: 75px;
+		}
 		#notice {
 			writing-mode: tb; 
 			font-size:15px;
@@ -50,15 +53,18 @@
 			var stampTitle = document.getElementById('stampTitle');
 			var stampName = document.getElementById('stampName');
 			var content = document.getElementById('content');
+			var photoUrl = document.getElementById('photoUrl');
 			var type = document.getElementById('type');
 			var stamp = document.getElementById('stamp');
 			var title = document.getElementById('title');
 			var name = document.getElementById('name');
 			var description = document.getElementById('description');
 			var foot = document.getElementById('foot');
+			var photo = document.getElementById('photo');
 			var typeValue = idType.value.substring(0,7);
 			var titleValue = stampTitle.value.substring(0,7);
 			var nameValue = stampName.value.substring(0,3);
+			photo.setAttributeNS("http://www.w3.org/1999/xlink", "href", photoUrl.value);
 			stamp.style.letterSpacing = 10*(7 - titleValue.length) + 'px';
 			name.style.letterSpacing = 10*(3 - nameValue.length) + 'px';
 			type.innerHTML = typeValue;
@@ -80,6 +86,7 @@
 		<input id="idType" type="text" name="idType" autofocus placeholder="证明类型（最多7字）" onchange="submit();">
 		<input id="stampTitle" type="text" name="stampTitle" placeholder="证明单位（最多7字）" onchange="submit();">
 		<input id="stampName" type="text" name="stampName" placeholder="印章名称（最多3字）" onchange="submit();">
+		<input id="photoUrl" type="url" name="photoUrl" placeholder="照片链接" onchange="submit();">
 		<textarea id="content" name="content"  placeholder="证明文字内容（最多3行）" onchange="submit();"></textarea>
 		<button>OK</button>
 	</div>
@@ -93,6 +100,7 @@
 		<text x="120" y="360" fill="black">此致</text>
 		<text x="480" y="420" fill="darkgray" id="foot">颁发此证的单位</text>
 		<text x="480" y="500" fill="darkgray" id="date"></text>
+		<image id="photo" x="600" y="120" width="150" height="150" xlink:href=""/>
   		<circle cx="590" cy="450" r="120" stroke="red" stroke-width="8" fill="none"/>
   		<polygon points="590,390 550,500 650,430 530,430 630,500"/>
   		<defs>
