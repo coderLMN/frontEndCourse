@@ -1,0 +1,247 @@
+<html><head>
+    <title>
+    
+      别再用JS框架了
+    
+    | BitWorking </title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+    <link rel="alternate" title="Joe Gregorio | BitWorking" href="/news/feed/" type="application/atom+xml">
+  
+    <style type="text/css" media="screen">
+      *{margin:0;padding:0}body{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-flow:column;-ms-flex-flow:column;flex-flow:column;color:#000;background:#FFF;font-family:Helvetica,Arial,'Bitstream Vera Sans',sans-serif;text-align:center;font-size:18px;margin:2em auto;width:40em}.search{margin-bottom:30px;display:block}h1,h2,h3,h4,h5{padding-left:0;font-weight:700}h1{padding-top:10px;padding-bottom:5px;font-size:43px;font-weight:700;letter-spacing:.09em;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-content:center;-ms-flex-line-pack:center;align-content:center}.logo{width:40px;height:40px;margin:10px}img{border:0 solid #fff;color:#fff;border-width:0}li{margin-bottom:.6em}blockquote,dl,ol,p,pre,table,ul{margin:15px 0}embed,ol,pre,ul{padding-left:2em}a,a:active,a:hover,a:link,a:visited{color:#000}a:hover{color:#707}.commentContent{background-color:#f5f5f5;margin-top:15px;margin-bottom:15px;padding:1em}.content,.item{text-align:left}h2{font-size:30px}dt{font-weight:700;margin:15px 0}dd{padding-left:1em}h3{margin-top:.5em;margin-bottom:.5em;font-size:24px;font-weight:700}h4{margin-top:.5em;font-style:italic}.item form img{margin-left:0}.item .pub{text-align:right;padding:1em;padding-left:1.5em;margin:0;margin-top:.5em}.footer{padding:.5em;border-top:solid #000 1px;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.unframed{padding:1em;float:right}.framed{padding:.5em;border:solid #000 3px;margin:1em}ins{background-color:#ff0;text-decoration:none}blockquote p{font-style:italic;text-align:right;padding-right:2em}.diff{background-color:#ff0}pre{font-family:monospace}code{color:green}.help,abbr,acronym{border-bottom:1px dotted #333;cursor:help}input{background-color:#ddd}.tags{padding-left:0;float:left}.tags li{float:right;padding:0;list-style-type:none}.rant{font-weight:700;color:#900}.fisk{margin-left:2em;padding:.5em;background-color:#f0f0f0}form{margin-top:0}.caption{text-align:center;margin-bottom:1em}td,th{padding:.1em .3em}th{background-color:#ddd}.tip{border:solid gray 1px;background-color:#eec;padding-left:1em}.aside{border:solid gray 1px;background-color:#ccc;padding:1em;margin-bottom:.5em;margin-top:.5em}table{border:0 none}.commentByLine{margin-left:0;padding-left:0;text-align:right}.nones{display:none}@media screen and (max-width:700px){h1 a{display:none}h1{display:block}.footer,.nav,.search{-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.search input{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}.nav a{font-size:24px}.logo{width:64px;height:64px;display:inline}body{margin:.5em auto;width:95%}.search input,h2{font-size:20px}.footer p{margin:0}}@media print{body{width:95%;margin-left:2%;margin-right:2%}}.pln{color:#000}@media screen{.str{color:#080}.kwd{color:#008}.com{color:#800}.typ{color:#606}.lit{color:#066}.clo,.opn,.pun{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:700}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:700}.lit{color:#044}.clo,.opn,.pun{color:#440}.tag{color:#006;font-weight:700}.atn{color:#404}.atv{color:#060}}pre.prettyprint{padding:2px;border:1px solid #888}ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
+    </style>
+  </head>
+  <body>
+    
+
+    <h1>
+    <img src="http://bitworking.org/images/newlogo.png" alt="logo" class="logo">
+    <a href="http://bitworking.org/news/">BitWorking</a></h1>
+
+    <p class="nav">
+      <a href="http://bitworking.org/news/">Home</a>
+      <a href="http://bitworking.org/news/bio">About</a>
+      <a href="http://bitworking.org/news/archives/">Archives</a>
+    </p> 
+ 
+        <form action="http://www.google.com/search" method="get" class="search"> 
+          <input name="q" id="q" type="text" title="Search bitworking.org using Google" value="Search"> <input name="q" type="hidden" value="site:bitworking.org"> 
+        </form> 
+
+  
+ 
+
+    <div class="item">
+    
+      <h2>别再用JS框架了</h2>
+      
+
+<p>
+如题。
+</p>
+
+<p class="aside">翻译版: <a href="http://postd.cc/zero_framework_manifesto/">日语</a></p>
+
+<p>
+JS框架看上去就像死亡和纳税，必然发生，无法避免。如果我能变成一只苍蝇趴在墙上，我就能确定每次启动一个新项目的时候，他们讨论的第一个问题肯定是：我们要用哪个JS框架？这种场景反映了当今JS框架的角色在行业里是多么根深蒂固不可动摇。但其实这种形势并非是必需的，而且实际上，这种做法需要制止。
+</p>
+
+<p>
+让我们先回顾一下我们是怎么一路走来的。
+</p>
+
+<blockquote><p>Angular 和 Backbone 还有 Ember，我滴个天哪。</p></blockquote>
+
+<p>
+长期以来，用最简洁的 HTML+CSS+JS 方式表述的<a href="http://platform.html5.org/">web 平台</a>，从技术栈的角度看是一场灾难。谁能忘记IE的盒子模型或者layer标签？我知道，那些例子会引出web开发中一些令你不堪回首的往事。
+
+</p>
+
+<p>
+很长时间里，浏览器之间存在大量的不一致，而我们作为一个行业，只能靠编写框架来糊裱一番。问题在于当时在不同浏览器之间对于一些基本问题都存在争议，例如事件如何传播或支持哪些标签，导致每个框架不仅糊裱了缺陷，而且还设计了他们对于浏览器功能的模型。实际上他们自己的模型都是多个，因为你要发明事件传播的模型，还有与DOM交互的模型，等等。这里边有很多新发明。随之出现了一些框架，然后聚沙成塔集腋成裘，就产生了大量诸如jQuery 、Dojo、MochiKit 、ExtJS 、AngularJS 、Backbone 、Ember 和React 等等玩意儿。在过去的十年里，我们不停地折腾出了成堆的框架。
+</p>
+
+<p>
+但是过去的十年里还发生了其他一些事：浏览器越来越好了。它们改善了对标准的支持，现在出现了自动更新的常青浏览器，它们的每个版本都比旧版本更适应和符合标准。这些新标准比如：
+</p>
+
+<ul>
+  <li><a href="http://w3c.github.io/webcomponents/spec/imports/">HTML Imports</a></li>
+  <li><a href="http://wiki.ecmascript.org/doku.php?id=harmony:observe">Object.observe</a></li>
+  <li><a href="http://www.html5rocks.com/en/tutorials/es6/promises/">Promises</a></li>
+  <li><a href="http://www.w3.org/TR/html5/scripting-1.html#the-template-element">HTML Templates</a></li>
+</ul>
+<p>
+我认为现在是时候重新思考JS框架的模型了。做Web 开发没必要再发明其他的方法，只要使用 HTML+CSS+JS 就行了。
+</p>
+
+<p>
+那么，为啥我们还在编写 JS 框架呢？我觉得这很大程度上是因为惯性，它成了一个习惯了。不过，有人要说，这种习惯有那么糟糕么？框架看起来也并不是有害的，对不？嗯，让我们先从我说的框架定义开始分析。实际上这些代码是有个增强的梯度，从代码小片段开始，例如Gist，逐渐扩大到越来越大的代码集，形成了库，最终产生了框架:
+</p>
+
+<blockquote><p>gist -&gt; library -&gt; framework </p></blockquote>
+
+<p>
+量变引起质变，框架已经不再仅仅是大型的库，它们有自己的一套与事件、DOM等交互的模型。那么，为啥要避免用框架呢？
+</p>
+
+<p>
+<strong>抽象</strong> 框架的一个问题往往也是它们的卖点，那就是它们把平台抽象了，这样你就能集中精力写你自己的软件。问题是，现在你需要学习两套开发系统，HTML+CSS+JS 和框架。当然了，假如某个框架能做到把web平台完全抽象化，那你就永远不需要涉足到框架之外，但是你猜怎么着？ <a href="http://www.joelonsoftware.com/articles/LeakyAbstractions.html">抽象也会泄露</a>。所以你需要了解 HTML+CSS+JS ，因为某些情况下你的程序不会按你所期望的方式工作，你需要深入框架内部的各个层直到 HTML+CSS+JS，才能找到出错的原因。
+</p>
+
+<blockquote>
+<p>
+  绘制冰山图
+</p>
+</blockquote>
+
+<p>
+一套框架就像一座冰山，浮在水面上的10%看起来并不危险，最终让你船毁人亡的是隐藏在下面的那90%。实际上更合适的一个比喻是，学习一套框架就像对一座冰山绘图，也就是说，为了使用框架你必须学会框架里所有的内容，花精力去把所有的内容对应到传统的 HTML+CSS+JS，从长期来看这个过程毫无意义，因为冰山最终都会融化。
+</p>
+
+<p>
+<strong>小组件</strong> 框架的另一个卖点是你可以获得一个小组件的库。可实际上，你并不是非要运用一套框架才能得到它们，它们应该是和框架无关的独立功能。这方面的一个好例子是 <a href="http://codemirror.net/">CodeMirror</a>，这是一个用Javascript 编写的语法标记代码编辑器。你可以在任何地方使用它，无需任何框架。
+</p>
+
+<p>
+给某个框架编写小组件也是吃力不讨好的事。还记得你在MochiKit 框架下编写的那些小组件吗？现在你转移到 Ember或者 Angular后，它们还好用不？
+</p>
+
+<p>
+<strong>数据绑定</strong> 老实说，我从来用不着它。不过如果你需要的话，它也应该以库的形式出现，而不是框架。
+</p>
+
+<p>
+框架带来的更长期的问题是它们最后变成一个一个地窖，把整个版图分割成片，给A框架编写的小组件无法在B框架下使用。这就是事倍功半。
+</p>
+
+<p>
+那么问题就来了：后框架时代的世界是什么样的呢？
+</p>
+
+<blockquote>
+<p>
+HTML+CSS+JS 就是我的框架。
+</p>
+</blockquote>
+
+<p>
+基本思路就是不再需要框架，使用 HTML+CSS+JS 中已经包含的能力去编写你的小组件就行了。把一块块巨石打散成独立的、可以任意组合的组件。按这个原则最终划分出的各块组件都成为<a href="http://www.w3.org/TR/components-intro/">Web 组件</a>中的一部分。
+</p>
+
+<p>
+HTML 引入, HTML 模板, 定制元素, 以及 Shadow DOM 都是有助于我们砍断框架束缚的有力技术，使我们能够产生可重用的元素和功能。要想更详细地了解这些技术的情况，请参阅以下文章和库： </p>
+
+<ul>
+  <li><a href="http://www.html5rocks.com/en/tutorials/webcomponents/imports/">HTML Imports</a></li>
+  <li><a href="http://www.polymer-project.org/">Polymer</a></li>
+  <li><a href="http://www.x-tags.org/">X-Tag</a></li>
+  <li><a href="http://bosonic.github.io/">Bosonic</a></li>
+</ul>
+
+<p>
+那么，是不是说我们都可以创建 <a href="http://mozbrick.github.io/docs/brick-flipbox.html">&lt;x-flipbox&gt;</a>然后就万事大吉了呢？
+</p>
+
+<p>
+不，并不是这样。运用 Web组件 需要做的第一件事是填补那些功能，例如 X-Tag 和 Polymer。不过随着浏览器逐渐填补对于这些规范的实现，这些工作的必要性会逐渐减少。
+</p>
+
+<p>
+在这里需要强调的一点是这些补丁并不是指那些自创一套 Web 开发模型的框架，它们只需要应用HTML 5模型就行了。但是那并不是真正唯一的需求，在Web平台上仍然有微小的缺口，每个浏览器都在一些细节上偏离当前的标准，这才是我们需要填补的地方。<a href="https://developer.mozilla.org">MDN</a> 看起来已经有很多所需的代码了，因为其中的文档经常包含了<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#Compatibility">短小的针对每个功能的补丁</a>。</p>
+
+<p>
+那么，一个巨大的 HTML 5 补丁库也许不错，但是更好的办法是我称之为 <q>html-5-polyfill-o-matic</q> 的一套工具，它让我能通过标准HTML+JS 来编写Web组件，然后分析我的代码 -- 通过静态分析或者运行时的 <code>Object.observe</code> ，使它可以精准地从完整HTML 5补丁中产生我的项目所需的一套子集。
+</p>
+
+<p>
+如果我开始尝试混合和匹配来自多个来源的Web组件 -- 例如来自 X-Tag 的 &lt;x-foo&gt; 和来自Polymer 的 &lt;core-bar&gt; ，这种功能会变得更加重要。是不是这就意味着我必须引入它们两者的补丁库呢？ (<a href="http://www.polymer-project.org/articles/polymer-xtag-vanilla.html">看起来答案是否定的</a>。) 我又要如何获取这些定制元素呢？ X-Tag 和 Brick 两者都有定制绑定生成器：
+</p>
+
+<ul>
+  <li> <a href="http://mozilla.github.io/brick/download.html">Brick 下载</a> </li>
+  <li> <a href="http://www.x-tags.org/download">X-Tag 下载</a> </li>
+</ul>
+
+<p>
+如果我开始生成定制元素，我是否需要生成我自己的定制绑定器呢？我不认为那是个可扩展的思路，我相信我们需要能更好处理这类问题的惯例和工具。这实际上可能意味着改变我们进行开源项目的方式，一个小工具并不是一个项目，所有我们处理这类问题的方法需要改变。当然了，还是要把代码放到Git里，但是你是否需要一个GitHub项目的整体开销呢？可能更好的办法是更轻量级、接近Gist的方式。我如何才能把<a href="https://github.com/Polymer/vulcanize">vulcanize</a> 里所有这些代码压缩成合适的形式用到我的项目里去？类似于 <a href="https://github.com/assetgraph/assetgraph-builder">Asset Graph</a> 的例子也许是个合适的起点。
+</p>
+
+<p>
+那么，我们现在需要的是什么？
+</p>
+
+<ol>
+  <li id="tools1">
+  编写可重用组件的惯例和指南。
+  </li>
+  <li id="tools2">
+  在这些惯例下用来编译和压缩的工具。所有都是 HTML, CSS, 和 JS。
+  </li>
+  <li id="tools3">
+  可扩展的 HTML 5 补丁，根据实际需要来确定用完整的还是精简版。
+  </li>
+</ol>
+
+<p>
+这就是我们在未来构建Web应用时所需要的一切。在那时，我们不再需要学习最新框架的最新模型，而是直接针对Web 平台工作，引入定制元素和库来满足特定需求，把时间花在编写应用上，而不是去绘制冰山图。
+</p>
+
+<h2 id="qa">Q&amp;A</h2>
+<p><b>Q:</b> 你为啥憎恨框架作者呢？</p>
+<p><b>A:</b> 我不憎恨他们。我有些最好的朋友就是框架作者。我承认从搞笑文章 <a href="http://codeofrob.com/entries/you-have-ruined-javascript.html">《你已经毁了Javascript》</a> 中得到了一点灵感，不过我要再次说明，我无意嘲笑框架作者。
+</p>
+
+<p><b>Q:</b> 你可以用HTML 5实现 ____ 功能，但为了这么做你需要一套框架</p>
+<p><b>A:</b> 首先，那不是一个问题。其次，感谢指出这一点。现在让我们一起努力增强HTML 5的能力，让____ 功能可以不用框架就能实现。</p>
+
+<p><b>Q:</b> 但是 ___ 并不是框架，它是一个库!</p>
+<p><b>A:</b> 是的，正如我所说，它是从gist 渐进到框架的，可能你的划分方式和我稍有区别。没关系，这篇文章的重点不是对特定软件的分类，而是远离框架。
+</p>
+
+<p><b>Q:</b> 我这么干活已经很多年了，用了 ___ 和 ___ 还有 ___。</p>
+<p><b>A:</b> 这也不是一个问题。不过无论如何，这对你是有好处的，你应该处在了帮助其他人的有利位置。
+</p>
+
+<p id="sam1"><b>Q:</b> 这么说每个人都需要重写下拉菜单、标签页、滑动条，并自己实现切换功能？</p>
+<p><b>A:</b> 绝对不是这样，关键是应该用一种不限定在某个框架的方式来创建这些元素。
+</p>
+
+<p><b>Q:</b> 伙计，所有这些 HTML 引入会把我网站的性能搞死的。</p>
+<p><b>A:</b> 是的，如果你在本地实现所有这些功能的话，这也是我前面
+<a href="#tools2">提到用来编译和压缩HTML+CSS+JS的工具的必要性</a> 的原因。</p>
+
+<p><b>Q:</b> 那么我就不要用 <em>任何</em> 库喽？ </p>
+<p><b>A:</b> 不，那不是我表达的意思。我在区分库和框架这方面非常谨慎。库提供的是可以配合其他库使用的独立功能块。库很好啊，我希望看到大家一致赞同远离的是 框架。
+</p>
+
+<p><b>Q:</b> 可是我喜欢数据绑定！ </p>
+<p><b>A:</b> 很多人都喜欢，我只是表达个人喜好罢了。我也没有说 <em>你</em> 不应该使用数据绑定，我只是说你不需要为了实现数据绑定而运用一整个框架而已，有一些独立的库就可以做到了。
+</p>
+
+
+
+      <p class="pub">2014-05-09</p>
+      </div>
+    
+    
+
+    <div class="footer">
+      <p class="footercopyright">© 2002-14 <a href="/news/bio">Joe Gregorio</a>
+      </p>
+      <p><b>Hosted on:</b> 
+      <a href="http://www.webfaction.com?affiliate=jcgregorio">WebFaction</a>
+      </p> 
+      <script async="" type="text/javascript" src="/js/b.min.js"></script> 
+
+   </div> 
+
+  
+ 
+
+  
+
+</body></html>

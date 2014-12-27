@@ -1,48 +1,77 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<style>
+			figure {display: inline-block;}
+		</style>
+	</head>
 	<body onhashchange="changeUrl()">
 	    <br>
 	    <h1> Front & back end interaction Demo </h1>
 	    <br>
-		<a href="#home">home</a>
-		<a href="#one">one</a>
-		<a href="#two">two</a>
-		<a href="#emojis" id="temp">github emojis</a>
+		<a href="#orig">original</a>
+		<a href="#keys">keys</a>
+		<a href="#full">full</a>
 		<div id="demo" style="border: 1px solid gray; min-height: 100px; min-width: 400px;"></div>
 		<br>
-		<h4>For description, see <a href="https://github.com/coderLMN/frontEndCourse/blob/master/architecture.md">Source Code</a></h4>
 		<script>
-			var divDemo = document.getElementById("demo");
+			var settings = {};
+			settings.partialCache = {};
+			settings.divDemo = document.getElementById("demo");
+			settings.divDemo.style.visible = false;
+			settings.apiMap = JSON.parse(loadPartial('https://api.github.com/emojis'));
+			
 			function changeUrl() {
 				var url = location.hash.replace('#','');
-				if(url == 'emojis'){
-					remoteApi('https://api.github.com/emojis');
+				if(url === ''){
+					url = 'orig';
 				}
-				else{
-					localPartial(url + '.html');
-				}
+				var partial = loadPartial(url + '.html');
+				divDemo.innerHTML = partial;
+				execFunc(url);
+				divDemo.style.visible = true;
 			}
-
-			function remoteApi(url) {
-				var apiMap = JSON.parse(loadPage(url));
-				var inner = '';
-			    for(var key in apiMap) {
-			    	console.log(key);
-			    	inner += "<figure style='display: inline-block;'><img src='" + apiMap[key] + "' width='100' height='100'><figcaption>" + key + "</figcaption></figure>";
-			    }
-			    divDemo.innerHTML =  inner;
-			}
-			
-			function localPartial(partial) {
-				divDemo.innerHTML = loadPage(partial);
-			}
-			
-			function loadPage(href) {
-		        var xmlhttp = new XMLHttpRequest();
-    			xmlhttp.open("GET", href, false);
-		        xmlhttp.send();
-        		return xmlhttp.responseText;
+/*			var inner = '';
+		    for(var key in apiMap) {
+		    	console.log(key);
+		    	inner += "<figure style='display: inline-block;'><img src='" + apiMap[key] + "' width='100' height='100'><figcaption>" + key + "</figcaption></figure>";
+		    }
+*/
+			function loadPartial(href) {
+			    if(! settings.partialCache[href]){			    	
+		        	var xmlhttp = new XMLHttpRequest();
+    				xmlhttp.open("GET", href, false);
+		        	xmlhttp.send();
+		        	console.log(xmlhttp);
+        			settings.partialCache[href] = xmlhttp.responseText;
+        		}
+        		return settings.partialCache[href];
+/*        		var children = divDemo.childNodes;
+        		for(var i in children){
+        			if(children[i].dataset){
+        				if (children[i].dataset.repeat) {
+        					
+        				}
+        			}
+        		}
+*/
     		}
+    		function execFunc(partial) {
+    			var fn = window[partial];
+				if(typeof fn === 'function') {
+				    fn(t);
+				}
+    		}
+    		var orig = function(){
+    			console.log('orig');
+    		}
+    		var keys = function(){
+    			console.log('keys');
+    		}
+    		var full = function(){
+    			console.log('full');
+    		}
+    		changeUrl();
 		</script>
 	</body>
 </html>
