@@ -770,4 +770,4 @@ web开发一共就那么些事，既然我们说前端干的活多了，那后�
 以上就是我目前总结的一些体会，相关的演示都在 http://coderlmn.github.io/frontEndCourse/ 里可以看到。推荐用 Chorme 浏览器，因为这些演示代码我主要是在它上面测试的。
 
 
-另外，对于无框架单页面应用开发，最近我又整理了自己的一些体会，放在单独的一个项目里：https://github.com/coderLMN/framework-free-single-page-app 
+另外，对于无框架单页面应用开发，最近我又整理了自己的一些体会，放在单独的一个项目里：https://github.com/coderLMN/framework-free-single-page-app ，供参考。
