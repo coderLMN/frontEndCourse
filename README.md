@@ -155,8 +155,9 @@ https://help.github.com
 
 ###学习资源： 
 
-http://coderlmn.github.io/code-standards/
-http://coderlmn.github.io/Front-End-Development-Guidelines/
+前端代码规范： http://coderlmn.github.io/code-standards/
+
+前端开发指南： http://coderlmn.github.io/Front-End-Development-Guidelines/
 
 
 二、热身小测试
@@ -194,7 +195,6 @@ http://coderlmn.github.io/Front-End-Development-Guidelines/
 
 
 ###4. 再来一个选做题
---
 
 给定一个HTML页面：
 
