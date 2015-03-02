@@ -33,23 +33,26 @@
 			color: #2fa4e7;
 			text-align: center;
 		}
+		video {
+			height: 150px;
+		}
+		small {
+			float: left;
+		}
 	</style>
 </head>
 <body>
 	<div>
 		<h3 class="tips">
-			Please share your video camera and microphone to start group chat.<br>
-			<hr>
-			<small>Other users must input the same room name to join this chat room.<br>You can set a long and complicated 'room' name (something like 'axdi394029kdkekdkgkbs4532'), which is only known to the people you invited, to setup a private chat room.</small>
+			<small>
+				<button class="join" onclick="join()">Join</button>
+				<button class="quit" onclick="quit()">Quit</button>
+			</small>
+			Please share your video camera and microphone to join group chat.
 		</h3>
 		<hr>
 		<div class="video">
 			<div class="control">
-				<h4>Chat room name:
-					<input type="text" id="topic" placeholder="例如： videochatoftom" maxlength="200" required onchange="setRoomName(event);">
-					<button class="join" onclick="join()">Join</button>
-					<button class="quit" onclick="quit()">Quit</button>
-				</h4>
 				<p>Your video</p>
 				<video id="localVideo"></video>
 			</div>
@@ -59,34 +62,25 @@
 			</div>
 		</div>
 	</div>
-	<script src="simpleWebRTC.js"></script>
+	<script src="http://simplewebrtc.com/latest.js"></script>
 	<script>
 		//use simpleWebRTC (https://github.com/henrikjoreteg/SimpleWebRTC ) to provide P2P video chat
-		var roomName = '';
 		var webrtc;
-		var setRoomName = function(event) {
-			roomName = event.target.value;
-		}
 		function join(){
-			if(roomName){
-				if(! webrtc) {
-					webrtc = new SimpleWebRTC({
-						// the id/element dom element that will hold "our" video
-						localVideoEl: 'localVideo',
-						// the id/element dom element that will hold remote videos
-						remoteVideosEl: 'remoteVideos',
-						// immediately ask for camera access
-						autoRequestMedia: true
-					});
-				}
-				webrtc.on('readyToCall', function () {
-					// you can name it anything
-					webrtc.joinRoom(roomName);
+			if(! webrtc) {
+				webrtc = new SimpleWebRTC({
+					// the id/element dom element that will hold "our" video
+					localVideoEl: 'localVideo',
+					// the id/element dom element that will hold remote videos
+					remoteVideosEl: 'remoteVideos',
+					// immediately ask for camera access
+					autoRequestMedia: true
 				});
 			}
-			else{
-				alert('Please tell the room name you wish to join.')
-			}
+			webrtc.on('readyToCall', function () {
+				// you can name it anything
+				webrtc.joinRoom('coderLMNchat');
+			});
 		}
 		function quit(){
 			webrtc.stopLocalVideo();
