@@ -6,6 +6,7 @@
 		button {height: 48px; width: 48px; background-color: transparent; background-size: contain; border: none; border-radius: 24px;}
 		button:focus {outline: none; background-color: yellow;}
 		textarea {font-size: 1.5em;}
+		a {float:right; background-color: gold;}
 		.play {background-image: url('play-icon.png');}
 		.cancel {background-image: url('stop-icon.png');}
 		.pause {background-image: url('pause-icon.png');}
@@ -13,13 +14,11 @@
 </head>
 <body>
     <div>
-		Text to be read:
-		<hr>
+		Text to be read: <a href="http://coderlmn.github.io/frontEndCourse">back to demo list</a> <hr>
 		<textarea rows="8" cols="80" id="text">Here's to the crazy ones. The misfits. The rebels. The troublemakers. The round pegs in the square holes.
 The ones who see things differently. They're not fond of rules. And they have no respect for the status quo. You can quote them, disagree with them, glorify or vilify them.
 About the only thing you can't do is ignore them. Because they change things. They push the human race forward.
-While some see them as the crazy ones, we see genius. Because the people who are crazy enough to think they can change the world, are the ones who do.</textarea>
-		<hr>
+While some see them as the crazy ones, we see genius. Because the people who are crazy enough to think they can change the world, are the ones who do.</textarea><hr>
 		<button onclick="togglePlay();" class="play" id="play"></button>
 		<button onclick="cancel();" class="cancel"></button>
     </div>
@@ -47,7 +46,6 @@ While some see them as the crazy ones, we see genius. Because the people who are
 				msg.volume = 1;
 				msg.rate = 0.9;
 				msg.pitch = 1;
-
 				//message for speech
 				msg.text = text;
 
@@ -64,6 +62,7 @@ While some see them as the crazy ones, we see genius. Because the people who are
 				}
 			}
 		}
+
 		function pause(){
 			if(speechSynthesis.speaking){
 				speechSynthesis.pause();
@@ -71,6 +70,7 @@ While some see them as the crazy ones, we see genius. Because the people who are
 				playSwitch.className = 'play';
 			}
 		}
+
 		function resume(){
 			if(speechSynthesis.paused){
 				speechSynthesis.resume();
@@ -78,6 +78,7 @@ While some see them as the crazy ones, we see genius. Because the people who are
 				playSwitch.className = 'pause';
 			}
 		}
+
 		function cancel(){
 			if(speechSynthesis.speaking || speechSynthesis.paused){
 				speechSynthesis.cancel();
@@ -86,6 +87,7 @@ While some see them as the crazy ones, we see genius. Because the people who are
 				playSwitch.className = 'play';
 			}
 		}
+
 		function togglePlay(){
 			if(!started) {
 				listen();
