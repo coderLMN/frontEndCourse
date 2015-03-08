@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>a demo of speech synthesis</title>
+	<style>
+		button {height: 48px; width: 48px; background-color: transparent; background-size: contain; border: none; border-radius: 24px;}
+		button:focus {outline: none; background-color: yellow;}
+		.play {background-image: url('play-icon.png');}
+		.cancel {background-image: url('stop-icon.png');}
+		.pause {background-image: url('pause-icon.png');}
+	</style>
+</head>
+<body>
+    <div>
+		Text to be read:
+		<hr>
+		<textarea rows="8" cols="80" id="text">Here's to the crazy ones. The misfits. The rebels. The troublemakers. The round pegs in the square holes.
+The ones who see things differently. They're not fond of rules. And they have no respect for the status quo. You can quote them, disagree with them, glorify or vilify them.
+About the only thing you can't do is ignore them. Because they change things. They push the human race forward.
+While some see them as the crazy ones, we see genius. Because the people who are crazy enough to think they can change the world, are the ones who do.</textarea>
+		<hr>
+		<button onclick="togglePlay();" class="play" id="play"></button>
+		<button onclick="cancel();" class="cancel"></button>
+    </div>
+	<script>
+		var msg, started, playing;
+		var playSwitch = document.getElementById('play');
+
+		if(window.speechSynthesis && typeof SpeechSynthesisUtterance === 'function') {
+			msg = new SpeechSynthesisUtterance();
+			//calling get voices method first scaffolds it for
+			//use in say method
+			window.speechSynthesis.getVoices();
+		}
+		else{
+			alert('Sorry, your browser does not support speech synthesis. Please use Chrome to play this demo.');
+		}
+
+		function listen() {                  //only rate is configurable
+			var text = document.getElementById('text').value;
+			var voices = window.speechSynthesis.getVoices();
+			//choose voice. Fallback to default
+			if(text && msg && voices.length > 10) {
+				msg.voice = voices[10];
+				//configurable parameters, all set to default value
+				msg.volume = 1;
+				msg.rate = 0.9;
+				msg.pitch = 1;
+
+				//message for speech
+				msg.text = text;
+
+				speechSynthesis.speak(msg);
+				started = true;
+				playing = true;
+				playSwitch.className = 'pause';
+
+				msg.onend = function(e){
+					started = false;
+					playing = false;
+					playSwitch.className = 'play';
+					e.preventDefault();
+				}
+			}
+		}
+		function pause(){
+			if(speechSynthesis.speaking){
+				speechSynthesis.pause();
+				playing = false;
+				playSwitch.className = 'play';
+			}
+		}
+		function resume(){
+			if(speechSynthesis.paused){
+				speechSynthesis.resume();
+				playing = true;
+				playSwitch.className = 'pause';
+			}
+		}
+		function cancel(){
+			if(speechSynthesis.speaking || speechSynthesis.paused){
+				speechSynthesis.cancel();
+				started = false;
+				playing = false;
+				playSwitch.className = 'play';
+			}
+		}
+		function togglePlay(){
+			if(!started) {
+				listen();
+			}
+			else if(playing){
+				pause();
+			}
+			else {
+				resume();
+			}
+		}
+	</script>
+</body>
+</html>
