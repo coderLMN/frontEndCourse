@@ -65,7 +65,7 @@
     	<text id="name" x="542" y="545" fill="red" style="font-size:30px;">印章名</text>
     	啊，你的浏览器不支持SVG！你out啦...  
 	</svg>
-	<canvas id="canvas" height="600" width="800" style="display: none"></canvas>
+	<canvas id="canvas" height="604" width="804" style="display: none"></canvas>
 	<script>
 		var date = new Date();
 		var issueDate = document.getElementById('date');
@@ -153,8 +153,8 @@
     			DOMURL.revokeObjectURL(url);
 
     			var imgURI = canvas
-        			.toDataURL('image/png')
-        			.replace('image/png', 'image/octet-stream');
+        			.toDataURL('image/jpg')
+        			.replace('image/jpg', 'image/octet-stream');
 
     			triggerDownload(imgURI);
   			};
