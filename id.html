@@ -12,62 +12,79 @@
 		input, textarea , button {
 			vertical-align: bottom;
 		}
-		svg {
-			background-color: lightyellow;
-			border: solid 2px gold;
-			border-radius: 10px;
-			font-family: 微软雅黑, Verdana, Arial;
-		}
-		polygon {
-			fill:red;
-			stroke:none;
-			fill-opacity: 0.8; 
-		}
-		circle {
-			stroke-opacity: 0.8;
-		}
-		text {
-			font-size:30px;
-		}
-		line {
-			stroke:red;
-			stroke-width:4;
-		}
-		image {
-			border-radius: 75px;
-		}
-		#notice {
-			writing-mode: tb; 
-			font-size:15px;
-			glyph-orientation-vertical: 90;
-		}
-		#type {
-			font-size:50px;
-			text-anchor: middle;
-		}
-		#stamp {
-			font-size:40px;
-			fill-opacity: 0.8;
+		canvas {
+			display: none;
 		}
 	</style>
+</head>
+<body>
+	<div>
+		<input id="idType" type="text" name="idType" autofocus placeholder="证明类型（最多7字）" onkeyup="update();">
+		<input id="stampTitle" type="text" name="stampTitle" placeholder="证明单位（最多7字）" onkeyup="update();">
+		<input id="stampName" type="text" name="stampName" placeholder="印章名称（最多3字）" onkeyup="update();">
+		<input type="file" accept="image/*" onchange="selectFile(this)">
+		<textarea id="content" name="content"  placeholder="证明文字内容（最多3行）" onkeyup="update();"></textarea>
+		<button onclick="download();">下载图片</button>
+		<a href="https://github.com/coderLMN/frontEndCourse/blob/gh-pages/id.html">源码</a>
+	</div>
+	<svg x="10" y="50" height="600" width="800" style="background-color: lightyellow;border: solid 2px gold;border-radius: 10px; font-family: 微软雅黑, Verdana, Arial;">
+		<text x="30" y="240" fill="lightblue" id="notice" style="writing-mode: tb; font-size:15px;glyph-orientation-vertical: 90;">---------- 重要证件，注意保管 ----------</text>
+		<text x="400" y="80" fill="red" id="type" style="font-size:50px;text-anchor: middle;">证明类型</text>
+		<line x1="80" y1="100" x2="720" y2="100"  style="stroke:red;stroke-width:4;"/>
+		<text x="100" y="120" fill="black" id="description" style="font-size:30px;">
+			<tspan x="100" dy="50">证明文字详细内容，最多三行。</tspan>
+		</text>
+		<text x="120" y="360" fill="black"  style="font-size:30px;">此致</text>
+		<text x="480" y="420" fill="darkgray" id="foot" style="font-size:30px;">颁发此证的单位</text>
+		<text x="480" y="500" fill="darkgray" id="date" style="font-size:30px;"></text>
+		<image id="photo" x="600" y="120" width="150" height="150" style="border: solid 2px gray; border-radius: 50%;" xlink:href=""/>
+  		<circle cx="590" cy="450" r="120" stroke="red" stroke-width="8" fill="none" style="stroke-opacity: 0.8;"/>
+  		<polygon points="590,390 550,500 650,430 530,430 630,500" style="fill:red;stroke:none;fill-opacity: 0.8; "/>
+  		<defs>
+        	<path id="myTextPath" d="M510,475 a50,62 0 0,1 160, 0"/>
+    	</defs>
+    	<text fill="red" id="stamp" style="font-size:40px; fill-opacity: 0.8;">
+    		<textPath id="title" xlink:href="#myTextPath" >颁发此证的单位</textPath>
+    	</text>
+    	<line x1="520" y1="510" x2="660" y2="510" style="stroke:red;stroke-width:4;"/>
+    	<text id="name" x="542" y="545" fill="red" style="font-size:30px;">印章名</text>
+    	啊，你的浏览器不支持SVG！你out啦...  
+	</svg>
+	<canvas id="canvas" height="600" width="800" style="display: none"></canvas>
 	<script>
-		function submit() {
+		var date = new Date();
+		var issueDate = document.getElementById('date');
+		var photoImg = document.getElementById('photo');
+		issueDate.innerHTML = date.getFullYear()+'年'+(date.getMonth()+1)+'月'+date.getDate()+'日';
+		function triggerDownload (imgURI) {
+	  		var evt = new MouseEvent('click', {
+    			view: window,
+    			bubbles: false,
+    			cancelable: true
+  			});
+
+  			var a = document.createElement('a');
+  			a.setAttribute('download', 'certificate.png');
+  			a.setAttribute('href', imgURI);
+  			a.setAttribute('target', '_blank');
+
+  			a.dispatchEvent(evt);
+		}
+		function update() {
 			var idType = document.getElementById('idType');
 			var stampTitle = document.getElementById('stampTitle');
 			var stampName = document.getElementById('stampName');
 			var content = document.getElementById('content');
-			var photoUrl = document.getElementById('photoUrl');
 			var type = document.getElementById('type');
 			var stamp = document.getElementById('stamp');
 			var title = document.getElementById('title');
 			var name = document.getElementById('name');
 			var description = document.getElementById('description');
 			var foot = document.getElementById('foot');
-			var photo = document.getElementById('photo');
 			var typeValue = idType.value.substring(0,7);
 			var titleValue = stampTitle.value.substring(0,7);
 			var nameValue = stampName.value.substring(0,3);
-			photo.setAttributeNS("http://www.w3.org/1999/xlink", "href", photoUrl.value);
+			
 			stamp.style.letterSpacing = 10*(7 - titleValue.length) + 'px';
 			name.style.letterSpacing = 10*(3 - nameValue.length) + 'px';
 			type.innerHTML = typeValue;
@@ -82,45 +99,52 @@
 				}
 			}
 		}
-	</script>
-</head>
-<body>
-	<div>
-		<input id="idType" type="text" name="idType" autofocus placeholder="证明类型（最多7字）" onchange="submit();">
-		<input id="stampTitle" type="text" name="stampTitle" placeholder="证明单位（最多7字）" onchange="submit();">
-		<input id="stampName" type="text" name="stampName" placeholder="印章名称（最多3字）" onchange="submit();">
-		<input id="photoUrl" type="url" name="photoUrl" placeholder="照片链接" onchange="submit();">
-		<textarea id="content" name="content"  placeholder="证明文字内容（最多3行）" onchange="submit();"></textarea>
-		<button>OK</button>
-		<a href="https://github.com/coderLMN/frontEndCourse/blob/gh-pages/id.html">源码</a>
-	</div>
-	<svg x="10" y="50" height="600" width="800">
-		<text x="30" y="240" fill="lightblue" id="notice">---------- 重要证件，注意保管 ----------</text>
-		<text x="400" y="80" fill="red" id="type">证明类型</text>
-		<line x1="80" y1="100" x2="720" y2="100"/>
-		<text x="100" y="120" fill="black" id="description">
-			<tspan x="100" dy="50">证明文字详细内容，最多三行。</tspan>
-		</text>
-		<text x="120" y="360" fill="black">此致</text>
-		<text x="480" y="420" fill="darkgray" id="foot">颁发此证的单位</text>
-		<text x="480" y="500" fill="darkgray" id="date"></text>
-		<image id="photo" x="600" y="120" width="150" height="150" xlink:href=""/>
-  		<circle cx="590" cy="450" r="120" stroke="red" stroke-width="8" fill="none"/>
-  		<polygon points="590,390 550,500 650,430 530,430 630,500"/>
-  		<defs>
-        	<path id="myTextPath" d="M510,475 a50,62 0 0,1 160, 0"/>
-    	</defs>
-    	<text fill="red" id="stamp">
-    		<textPath id="title" xlink:href="#myTextPath" >颁发此证的单位</textPath>
-    	</text>
-    	<line x1="520" y1="510" x2="660" y2="510"/>
-    	<text id="name" x="542" y="545" fill="red">印章名</text>
-    	啊，你的浏览器不支持SVG！你out啦...  
-	</svg>
-	<script>
-		var date = new Date();
-		var issueDate = document.getElementById('date');
-		issueDate.innerHTML = date.getFullYear()+'年'+(date.getMonth()+1)+'月'+date.getDate()+'日';
+		function selectFile(element) {    //upload a image file as the cover photo of the article
+        	var file = element.files[0];
+        	var fileLoader = new FileReader(),
+        	canvas = document.createElement('canvas'),
+            context = null,
+        	imageObj = new Image();
+        	fileLoader.readAsDataURL(file);
+        	
+        	fileLoader.onload = function () {
+            	var data = this.result;
+            	imageObj.src = data;
+        	};
+        	imageObj.onload = function () {
+        		canvas.height = imageObj.height;
+        		canvas.width = imageObj.width;
+        		canvas.style.display = "none";
+        		document.body.appendChild(canvas);
+        		context = canvas.getContext('2d');
+                context.drawImage(imageObj, 0, 0);
+				photoImg.setAttributeNS("http://www.w3.org/1999/xlink", "href", canvas.toDataURL());
+            }
+			
+		}
+		function download() {
+			var svg = document.querySelector('svg');
+  			var canvas = document.getElementById('canvas');
+  			var ctx = canvas.getContext('2d');
+  			var data = (new XMLSerializer()).serializeToString(svg);
+  			var DOMURL = window.URL || window.webkitURL || window;
+
+  			var img = new Image();
+  			var svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
+  			var url = DOMURL.createObjectURL(svgBlob);
+
+  			img.onload = function () {
+    			ctx.drawImage(img, 0, 0);
+    			DOMURL.revokeObjectURL(url);
+
+    			var imgURI = canvas
+        			.toDataURL('image/png')
+        			.replace('image/png', 'image/octet-stream');
+
+    			triggerDownload(imgURI);
+  			};
+  			img.src = url;
+		}
 	</script> 
 </body>
 </html>
