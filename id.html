@@ -13,6 +13,7 @@
 			vertical-align: bottom;
 			min-height: 50px;
 			min-width: 160px;
+			font-size: 15px;
 		}
 		canvas {
 			display: none;
@@ -44,7 +45,7 @@
 		<input id="stampTitle" type="text" name="stampTitle" placeholder="证明单位（最多7字）" onkeyup="update();">
 		<input id="stampName" type="text" name="stampName" placeholder="印章名称（最多3字）" onkeyup="update();">
 		<input type="file" accept="image/*" onchange="selectFile(this)">
-		<textarea id="content" name="content" cols="60" placeholder="证明文字内容（最多3行）" onkeyup="update();"></textarea>
+		<textarea id="content" name="content" cols="60" rows="3" placeholder="证明文字内容（最多3行）" onkeyup="update();"></textarea>
 		<button onclick="download();">下载图片</button>
 		<a href="https://github.com/coderLMN/frontEndCourse/blob/gh-pages/id.html">源码</a>
 	</div>
