@@ -42,7 +42,8 @@
 		<button onclick="download();">下载图片</button>
 		<a href="https://github.com/coderLMN/frontEndCourse/blob/gh-pages/id.html">源码</a>
 	</div>
-	<svg x="10" y="50" height="600" width="800" style="background-color: lightyellow;border: solid 2px gold;border-radius: 10px; font-family: 微软雅黑, Verdana, Arial;">
+	<svg x="10" y="50" height="600" width="800" style="background-color: lightyellow; font-family: 微软雅黑, Verdana, Arial;">
+		<rect x="0" y="0" rx="10" ry="10" width="800" height="600" style="fill:none; stroke:gold;stroke-width:5;"/>
 		<text x="30" y="240" fill="lightblue" id="notice" style="writing-mode: tb; font-size:15px;glyph-orientation-vertical: 90;">---------- 重要证件，注意保管 ----------</text>
 		<text x="400" y="80" fill="red" id="type" style="font-size:50px;text-anchor: middle;">证明类型</text>
 		<line x1="30" y1="100" x2="780" y2="100"  style="stroke:red;stroke-width:4;"/>
@@ -65,7 +66,7 @@
     	<text id="name" x="542" y="545" fill="red" style="font-size:30px;">印章名</text>
     	啊，你的浏览器不支持SVG！你out啦...  
 	</svg>
-	<canvas id="canvas" height="604" width="804" style="display: none"></canvas>
+	<canvas id="canvas" height="600" width="800"></canvas>
 	<script>
 		var date = new Date();
 		var issueDate = document.getElementById('date');
@@ -129,7 +130,6 @@
         	imageObj.onload = function () {
         		canvas.height = imageObj.height;
         		canvas.width = imageObj.width;
-        		canvas.style.display = "none";
         		document.body.appendChild(canvas);
         		context = canvas.getContext('2d');
                 context.drawImage(imageObj, 0, 0);
