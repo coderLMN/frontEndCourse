@@ -18,7 +18,7 @@
 		canvas {
 			display: none;
 		}
-		button {
+		button, label {
 			border-top: 1px solid #96d1f8;
     		background: #ce474d;
     		padding: 5px 10px;
@@ -26,12 +26,19 @@
     		-moz-border-radius: 8px;
     		border-radius: 8px;
     		color: white;
-    		font-size: 10px;
+    		font-size: 30px;
     		text-decoration: none;
     		vertical-align: middle;
     		margin-left: 8px;
     		outline: none;
     		min-height: 15px;
+		}
+		input[type="file"] {
+    		display: none;
+		}
+		.custom-file-upload {
+    		background: gold;
+    		font-size: 20px;
 		}
 		textarea,input::-webkit-input-placeholder { font-size: 12pt; min-height: 30px;}
 		textarea,input::-moz-placeholder { font-size: 12pt; min-height: 30px;}
@@ -44,7 +51,9 @@
 		<input id="idType" type="text" name="idType" autofocus placeholder="证明类型（最多7字）" onkeyup="update();">
 		<input id="stampTitle" type="text" name="stampTitle" placeholder="证明单位（最多7字）" onkeyup="update();">
 		<input id="stampName" type="text" name="stampName" placeholder="印章名称（最多3字）" onkeyup="update();">
-		<input type="file" accept="image/*" onchange="selectFile(this)">
+		<label class="custom-file-upload"><input id="imgFile" type="file" accept="image/*" onchange="selectFile(this)">上传照片</label>
+	</div>
+	<div>
 		<textarea id="content" name="content" cols="60" rows="3" placeholder="证明文字内容（最多3行）" onkeyup="update();"></textarea>
 		<button onclick="download();">下载图片</button>
 		<a href="https://github.com/coderLMN/frontEndCourse/blob/gh-pages/id.html">源码</a>
