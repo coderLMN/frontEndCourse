@@ -62,9 +62,9 @@
 					var url = URL.createObjectURL(blob);
 					return url;
 				}
-    			if (this.video.paused || this.video.ended) {
-      				return;
-    			}
+    			// if (this.video.paused || this.video.ended) {
+      	// 			return;
+    			// }
     			this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
     			var img = blobify_dataurl(this.c1.toDataURL());
 				this.c2.setAttributeNS("http://www.w3.org/1999/xlink", "href", img);
@@ -80,11 +80,12 @@
     			this.ctx1 = this.c1.getContext("2d");
     			this.c2 = document.getElementById("c2");
     			var self = this;
-    			this.video.addEventListener("play", function() {
-        			self.width = self.video.videoWidth;
-        			self.height = self.video.videoHeight;
-        			self.timerCallback();
-      			}, false);
+    			self.width = self.video.videoWidth;
+        		self.height = self.video.videoHeight;
+        		self.timerCallback();
+    			// this.video.addEventListener("play", function() {
+        			
+      	// 		}, false);
   			}
 		};
 		</script>
