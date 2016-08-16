@@ -155,9 +155,9 @@ https://help.github.com
 
 ###学习资源： 
 
-前端代码规范： http://coderlmn.github.io/code-standards/
+前端代码规范： https://coderlmn.github.io/code-standards/
 
-前端开发指南： http://coderlmn.github.io/Front-End-Development-Guidelines/
+前端开发指南： https://coderlmn.github.io/Front-End-Development-Guidelines/
 
 
 二、热身小测试
@@ -575,7 +575,7 @@ Effects / jQuery .animate  --  CSS3 animate
 例如AngularJS在前端逻辑控制中提供了一套Route机制，根据url的变化动态加载相应的控制逻辑和html片段，如果去查看它的源代码里的browser.js，就可以发现这套机制的核心是针对hashchange和popstate事件来进行处理的（这样也就理解了为什么在html5Mode == false的时候，angurlajs应用所有的url前面都会带一个'/#'了)。那么，利用原生JS也可以实现类似的功能。
 
 
-下面的例子构造了三个链接，点击后分别加载不同的html片段放入div#demo中。演示链接：http://coderlmn.github.io/frontEndCourse/ctrlDemo.html
+下面的例子构造了三个链接，点击后分别加载不同的html片段放入div#demo中。演示链接：https://coderlmn.github.io/frontEndCourse/ctrlDemo.html
 
 ```html
 <!DOCTYPE html>
@@ -674,7 +674,7 @@ HTML5提供了很多革命性的特性，除了Drag & Drop、Video、SVG等新�
 
 这里有个IndexedDB内嵌数据库的例子：
 
-演示：http://coderlmn.github.io/offlineDB/
+演示：https://coderlmn.github.io/offlineDB/
 
 
 ###CSS3
@@ -683,7 +683,7 @@ CSS3的出现也大大地简化了前端渲染的工作，它推出的text-shado
 
 这里有个3D Transform的例子：
 
-演示：http://coderlmn.github.io/CSS3dTimeMachine/
+演示：https://coderlmn.github.io/CSS3dTimeMachine/
 
 
 ###SVG
@@ -692,7 +692,7 @@ HTML5支持内嵌SVG，SVG又支持嵌入CSS和JS，使得SVG成为了极其强�
 
 这里有个SVG动画和根据结构化数据动态绘制SVG图的例子：
 
-演示： http://coderlmn.github.io/frontEndCourse/mask.html
+演示： https://coderlmn.github.io/frontEndCourse/mask.html
 
 ###JS
 
