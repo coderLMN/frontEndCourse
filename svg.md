@@ -26,7 +26,7 @@
 
 内嵌图片，也就是让 SVG 内部可以包含传统的图片文件，而不仅仅是矢量。这是由 SVG 自带的 `<image>` 元素来定义的，例如：
 ```html
-<image xlink:href="http://img11.360buyimg.com/n1/jfs/t328/90/1014784552/197901/e1173be9/542d0c35N167c45c2.jpg" x="0px" y="0px" width="350px" height="350px"></image>
+<image xlink:href="product.jpg" x="0px" y="0px" width="350px" height="350px"></image>
 ```
 其中的 x 和 y 属性代表内嵌图片在 SVG 内的左上角坐标，width 和 height 属性则表示内嵌图片在 SVG 内占据的宽度和高度， `xlink:href` 定义了图片文件所在的 URL。
 
@@ -53,9 +53,9 @@
 	<title>用 SVG 实现图片放大镜的功能</title>
 </head>
 <body>
-	<img src="http://img11.360buyimg.com/n1/jfs/t328/90/1014784552/197901/e1173be9/542d0c35N167c45c2.jpg" id="img">
+	<img src="product.jpg" id="img" width="350px" height="350px" style="cursor: -moz-zoom-in; cursor: -webkit-zoom-in; cursor: zoom-in;">
 	<svg version="1.0" id="svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="350px" height="350px" viewBox="132 243 120 120" enable-background="new 0 0 350 350" xml:space="preserve" style="visibility: hidden;">
-		<image xlink:href="http://img11.360buyimg.com/n1/jfs/t328/90/1014784552/197901/e1173be9/542d0c35N167c45c2.jpg" x="0px" y="0px" width="350px" height="350px"></image>
+		<image xlink:href="product.jpg" x="0px" y="0px" width="350px" height="350px"></image>
 		<text x="96" y="170" style="fill: none; stroke: lightblue; font-size: 20px; opacity: 0.6;" transform="rotate(15 96 170)">
     		@老码农的自留地
 		</text>
