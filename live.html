@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>Secret Door</title>
+	<style>
+		body {
+			margin: 0;
+		}
+		.input {
+			bottom: 0;
+			position:fixed;
+			width: 100%;
+			padding: 1%;
+			height: 12%;
+			z-index: 100;
+			background-color: white;
+			border-top: 1px solid darkorange;
+			display: inline-flex;
+		}
+		#show {
+			margin-left: 15%;
+			width: 80%;
+			z-index:1;
+			padding-bottom: 10%;
+			word-wrap: break-word;
+		}
+		#show p {
+			background-color: aliceblue;
+			padding: 6px;
+			border: lightskyblue 1px solid;
+			color: darkslategray;
+		}
+		input {
+			border-top: 1px solid #96d1f8;
+			background: #3e779d;
+			padding: 5px 10px;
+			-webkit-border-radius: 8px;
+			-moz-border-radius: 8px;
+			border-radius: 8px;
+			color: white;
+			font-size: 10px;
+			text-decoration: none;
+			vertical-align: middle;
+			margin-left: 8px;
+			outline: none;
+			min-height: 15px;
+		}
+		#text {
+			width : 80%;
+			margin-left: 8%;
+			background-color: lightyellow;
+			color: darkslategray;
+			border: 1px solid gold;
+			padding: 6px;
+		}
+		/*button {*/
+			/*position: fixed;*/
+			/*top: 10%;*/
+			/*left:6px;*/
+			/*width: 30px;*/
+			/*height: 30px;*/
+			/*text-align: center;*/
+			/*background: none;*/
+			/*border: none;*/
+			/*outline: none;*/
+			/*padding: 0;*/
+		/*}*/
+		.loading {
+			-webkit-animation:spin 2s linear infinite;
+			-moz-animation:spin 2s linear infinite;
+			animation:spin 2s linear infinite;
+		}
+		@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+		@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+		@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+		span {
+			margin-left: 25%;
+		}
+		/*This half style effect is based from the answer in*/
+		/*http://stackoverflow.com/questions/23569441/is-it-possible-to-apply-css-to-half-of-a-character*/
+		.halfStyle {
+			position:relative;
+			display:inline-block;
+			font-size:40px; /* or any font size will work */
+			color: red; /* or transparent, any color */
+			overflow:hidden;
+			white-space: pre; /* to preserve the spaces from collapsing */
+		}
+		.halfStyle:before {
+			display:block;
+			z-index:1;
+			position:absolute;
+			top:0;
+			left:0;
+			width: 67%;
+			content: attr(data-content); /* dynamic content for the pseudo element */
+			overflow:hidden;
+			color: darkgoldenrod;
+		}
+		.halfStyle:after {
+			display:block;
+			z-index:1;
+			position:absolute;
+			top:0;
+			left:0;
+			width: 33%;
+			content: attr(data-content); /* dynamic content for the pseudo element */
+			overflow:hidden;
+			color: green;
+		}
+		.video-column .video-player {
+			width: 768px;
+			height: 432px;
+			float: left;
+			position: relative;
+		}
+
+	</style>
+	<script src="public/socket.io.js"></script>
+	<script src="public/src.js"></script>
+</head>
+<body>
+<iframe src="http://cbsnews.com/live/"  width="800" height="500" style="z-index: 1000;"></iframe>
+<hr>
+<div>
+
+<button id="btn-open-room">Open Room</button>
+<button id="btn-join-room">Join Room</button>
+</div>
+
+<script>
+	var connection = new RTCMultiConnection();
+	console.log(connection);
+
+	// this line is VERY_important
+	connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+
+	// all below lines are optional; however recommended.
+
+	connection.session = {
+		audio: true,
+		video: false,
+		screen: false,
+		oneway: true
+	};
+
+	connection.sdpConstraints.mandatory = {
+		OfferToReceiveAudio: true,
+		OfferToReceiveVideo: false
+	};
+
+	connection.onstream = function(event) {
+		console.log(event);
+		document.body.appendChild( event.mediaElement );
+	};
+
+	var predefinedRoomId = 'CODERLMN&LUOSHIFU';
+
+	document.getElementById('btn-open-room').onclick = function() {
+		this.disabled = true;
+		connection.open( predefinedRoomId );
+	};
+
+	document.getElementById('btn-join-room').onclick = function() {
+		this.disabled = true;
+		connection.join( predefinedRoomId );
+	};
+</script>
+
+</body>
+</html>
