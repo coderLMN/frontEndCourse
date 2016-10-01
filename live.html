@@ -9,51 +9,25 @@
 	<script src="./src.js"></script>
 </head>
 <body>
+	<div></div>
+	<script>
+		var connection = new RTCMultiConnection();
+		connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+		connection.session = {
+			audio: true,
+			video: false,
+			screen: false,
+			oneway: true
+		};
+		connection.sdpConstraints.mandatory = {
+			OfferToReceiveAudio: true,
+			OfferToReceiveVideo: false
+		};
 
-<div>
-
-	<button id="btn-open-room">Open Room</button>
-	<button id="btn-join-room">Join Room</button>
-</div>
-
-<script>
-	var connection = new RTCMultiConnection();
-	console.log(connection);
-
-	// this line is VERY_important
-	connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
-
-	// all below lines are optional; however recommended.
-
-	connection.session = {
-		audio: true,
-		video: false,
-		screen: false,
-		oneway: true
-	};
-
-	connection.sdpConstraints.mandatory = {
-		OfferToReceiveAudio: true,
-		OfferToReceiveVideo: false
-	};
-
-	connection.onstream = function(event) {
-		console.log(event);
-		document.body.appendChild( event.mediaElement );
-	};
-
-	var predefinedRoomId = 'CODERLMN&LUOSHIFU';
-
-	document.getElementById('btn-open-room').onclick = function() {
-		this.disabled = true;
-		connection.open( predefinedRoomId );
-	};
-
-	document.getElementById('btn-join-room').onclick = function() {
-		this.disabled = true;
-		connection.join( predefinedRoomId );
-	};
-</script>
-
+		connection.onstream = function(event) {
+			document.body.appendChild( event.mediaElement );
+		};
+		connection.join('coderlmnandluoshifu');
+	</script>
 </body>
 </html>
