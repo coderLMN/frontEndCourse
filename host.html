@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>Secret Door</title>
+	<script src="./socket.io.js"></script>
+	<script src="./src.js"></script>
+</head>
+<body>
+<div></div>
+<script>
+	var connection = new RTCMultiConnection();
+	connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+	connection.session = {
+		audio: true,
+		video: false,
+		screen: false,
+		oneway: true
+	};
+	connection.sdpConstraints.mandatory = {
+		OfferToReceiveAudio: true,
+		OfferToReceiveVideo: false
+	};
+	connection.onstream = function(event) {
+		document.body.appendChild( event.mediaElement );
+	};
+	connection.open('coderlmnandluoshifu');
+</script>
+</body>
+</html>
