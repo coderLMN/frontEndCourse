@@ -1357,7 +1357,7 @@
 
         connection.getUserMediaHandler = getUserMediaHandler;
         connection.multiPeersHandler = mPeer;
-        connection.enableLogs = true;
+        connection.enableLogs = false;
         connection.setCustomSocketHandler = function(customSocketHandler) {
             if (typeof SocketConnection !== 'undefined') {
                 SocketConnection = customSocketHandler;
