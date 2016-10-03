@@ -501,7 +501,7 @@
 
         connection.session = {
             audio: true,
-            video: true
+            video: false
         };
 
         connection.enableFileSharing = false;
@@ -574,7 +574,7 @@
         if (isFirefox) {
             connection.mediaConstraints = {
                 audio: true,
-                video: true
+                video: false
             };
         }
 
@@ -1357,7 +1357,7 @@
 
         connection.getUserMediaHandler = getUserMediaHandler;
         connection.multiPeersHandler = mPeer;
-        connection.enableLogs = false;
+        connection.enableLogs = true;
         connection.setCustomSocketHandler = function(customSocketHandler) {
             if (typeof SocketConnection !== 'undefined') {
                 SocketConnection = customSocketHandler;
