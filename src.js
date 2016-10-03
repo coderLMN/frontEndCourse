@@ -2187,7 +2187,8 @@
 
                 if (session.oneway && session.audio && session.audio === 'two-way') {
                     session = {
-                        audio: true
+                        audio: true,
+                        video: false
                     };
                 }
 
@@ -4717,7 +4718,8 @@
             if (isPluginRTC && window.PluginRTC) {
                 var mediaElement = document.createElement('audio');
                 window.PluginRTC.getUserMedia({
-                    audio: true
+                    audio: true,
+                    video: false
                 }, function(stream) {
                     stream.streamid = stream.id || getRandomString();
                     streaming(stream);
