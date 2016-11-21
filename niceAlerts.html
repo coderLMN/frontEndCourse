@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SweetAlert : Input Email</title>
+  <link rel="stylesheet prefetch" href="bootstrap.min.css">
+  <link rel="stylesheet prefetch" href="sweetalert2.min.css">
+  <style>
+    .text-center{
+      margin-top: 20%;
+      margin-left: 40%;
+      padding-top: 80px;
+      height: 200px;
+      background-color: lightyellow;
+      width: 200px;
+      border: 3px solid gold;
+      border-radius: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="text-center">
+    <button type="button" class="btn btn-info" id="delete">
+      <i class="glyphicon glyphicon-envelope"></i>Email Input
+    </button>
+  </div>
+  <script src="sweetalert2.min.js"></script>
+  <script>
+    var btn = document.getElementById("delete");
+    btn.onclick = function (){
+      swal({
+        title: 'Enter email address',
+        input: 'email'
+      }).then(function (email) {
+        swal({
+            type: 'success',
+            html: 'Your email: ' + email
+        });
+      });
+    }
+  </script>
+ </body>
+ </html>
