@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WordSmith lite</title>
+</head>
+<body>
+     <textarea id="content" cols="100" rows="10" onchange="count();"> </textarea>
+	 <p id="result">Report goes here:</p>
+	 <script type="text/javascript">
+
+
+		 function count() {
+			 document.getElementById("result").innerHTML = "Report goes here:";
+			 var content = document.getElementById("content").value.toLowerCase().replace(/[^a-zA-Z ]+/g, '').replace('/ {2,}/',' ');
+			 var words = content.split(' ');
+			 var result = new Object();;
+			 for(var i=0; i<words.length; i++){
+				 if(words[i].length > 0){
+					 if(!result[words[i]]) {
+						 result[words[i]] = 1;
+					 }
+					 else{
+						 result[words[i]] ++;
+					 }
+				 }
+			 }
+			 keysSorted = Object.keys(result).sort(function(a,b){return result[b]-result[a]})
+			 for(i in keysSorted){
+				 document.getElementById("result").innerHTML += '<br>'+keysSorted[i]+' : '+result[keysSorted[i]];
+			 }
+		 }
+	 </script>
+</body>
+</html>
