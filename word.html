@@ -7,8 +7,6 @@
      <textarea id="content" cols="100" rows="10" onchange="count();"> </textarea>
 	 <p id="result">Report goes here:</p>
 	 <script type="text/javascript">
-
-
 		 function count() {
 			 document.getElementById("result").innerHTML = "Report goes here:";
 			 var content = document.getElementById("content").value.toLowerCase().replace(/[^a-zA-Z ]+/g, '').replace('/ {2,}/',' ');
