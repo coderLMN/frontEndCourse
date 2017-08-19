@@ -3,7 +3,7 @@
 
 电商网站上一个典型的功能就是产品图片的放大镜。当用户鼠标悬停在产品图片上时，能够把鼠标所在位置周边的产品图片进行放大，让用户能够看得更清楚。效果如下图所示：
 
-![产品图片放大效果](http://ww4.sinaimg.cn/large/8063ac81gw1ew5rbniebbj20hp0b7dhq.jpg)
+![产品图片放大效果](https://user-images.githubusercontent.com/3234019/29485377-7ba6e66c-8503-11e7-881c-44134edc2291.jpg)
 
 我花了点时间看了下京东和淘宝的产品页面，它们都有这个功能，例如：https://detail.tmall.com/item.htm?spm=a230r.1.14.3.Xpop8Z&id=41610798823 和 http://item.jd.com/1217501.html 。如果你没有印象，可以自己去网页上试一试。
 
