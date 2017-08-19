@@ -10,10 +10,10 @@
 这个功能是如何实现的呢？京东和淘宝都用了 JS 库和大量的 JS 代码实现这个动态的效果，从原理上说，就是在 DOM 里动态地插入一些元素（比如 `div` ），然后根据鼠标位置计算并截取图片的一部分放入动态插入的元素中。相关的部分代码见下图：
 
 ### 淘宝：
-![TB](http://ww1.sinaimg.cn/large/8063ac81gw1ew6x6h12y5j20wb0fn49a.jpg)
+![TB](https://user-images.githubusercontent.com/3234019/29485319-ace2b068-8502-11e7-8e38-47384bbe22d8.jpg)
 
 ### 京东：
-![JD](http://ww2.sinaimg.cn/large/8063ac81gw1ew6x6ftx1ej20wf0f8kah.jpg)
+![JD](https://user-images.githubusercontent.com/3234019/29485318-a570e64c-8502-11e7-985a-035ab7c00ec1.jpg)
 
 这样的实现方法当然是直观有效的，但是有没有更好、更简单的方法呢？
 
