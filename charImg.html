@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coderlmn's Char Image Tool</title>
+</head>
+<body>
+    <input type="file" accept="image/*" id="file" onchange="selectFile(this)">
+    <canvas id="canvas"></canvas>
+    <span id='char' style="font-family: monospace; line-height: 0; font-size: xx-small;font-weight: bolder;"></span>
+    <script>
+        var charSpan = document.getElementById('char');
+        var selectFile = function(element) {    //select image files within the photos directory
+            var file = element.files[0];
+            charSpan.innerHTML = '';
+            var dimension = 150;            //dimension of the target image
+            var fileLoader = new FileReader(), imageObj = new Image();
+
+            //if it's a valid image file, feed fileloader with data from the image file
+            if (file.type.match('image.*')) {
+                fileLoader.readAsDataURL(file);
+            }
+            else{
+                console.log('This file : ' + file.name + ' is not a valid image file.');
+            }
+
+            var charColor = [];
+            for(var n=0; n<=256; n++){
+                if(n<10) charColor[n] = 'M';
+                else if(n<20) charColor[n] = 'W';
+                else if(n<40) charColor[n] = 'B';
+                else if(n<60) charColor[n] = 'R';
+                else if(n<80) charColor[n] = 'H';
+                else if(n<100) charColor[n] = 'J';
+                else if(n<120) charColor[n] = 'I';
+                else if(n<140) charColor[n] = 't';
+                else if(n<160) charColor[n] = 'r';
+                else if(n<180) charColor[n] = '+';
+                else if(n<200) charColor[n] = '-';
+                else if(n<220) charColor[n] = ',';
+                else if(n<240) charColor[n] = '.';
+                else charColor[n] = '&nbsp;';
+            }                       // set replacing characters for the ranges of gray scales
+            var colorString = '';
+
+            // when the fileloader has the file object, it passes data to the image object,
+            // which will triggers the imageObj onload function once the image has loaded.
+            fileLoader.onload = function() {
+                imageObj.src = this.result;
+            };
+
+            imageObj.onload = function() {
+                // Check for empty images
+                if(this.width == 0 || this.height == 0){
+                    console.log('Image is empty');
+                } else {
+                    var wid = dimension;
+                    var hei = Math.round(this.height*dimension/this.width);           //default drawing area
+                    //use the canvas object to create the new resized image data
+                    var canvas = document.getElementById('canvas');
+                    var context = canvas.getContext('2d');
+                    canvas.width = wid;
+                    canvas.height  = hei;
+                    context.clearRect(0,0,wid,hei);
+                    //draw the resized image on the canvas -- it's a HTML 5 method
+                    context.drawImage(this, 0, 0, this.width, this.height, 0, 0, wid, hei);
+                    var imageData = context.getImageData(0, 0, wid, hei);
+                    var data = imageData.data;
+
+                    for (var i = 4; i < data.length; i += 4) {
+                        var avg = Math.round((data[i] + data[i+1] + data[i + 2]) / 3);
+                        colorString += charColor[avg];
+                        if(i%(dimension*4) == 0) {
+                            charSpan.innerHTML += '<p>' + colorString +'</p>';
+                            colorString = '';
+                        }
+                    }          // generate the character image string
+                }
+            };
+        }
+    </script>
+</body>
+</html>
