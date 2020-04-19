@@ -2,8 +2,15 @@
 <html>
 <head>
     <title>Coderlmn's Char Image Tool</title>
+    <style>
+        span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
 </head>
-<body>
+<body style="width: 1000px;">
     <input type="file" accept="image/*" id="file" onchange="selectFile(this)">
     <canvas id="canvas"></canvas>
     <span id='char' style="font-family: monospace; line-height: 0; font-size: xx-small;font-weight: bolder;"></span>
@@ -70,7 +77,7 @@
                         var avg = Math.round((data[i] + data[i+1] + data[i + 2]) / 3);
                         colorString += charColor[avg];
                         if(i%(dimension*4) == 0) {
-                            charSpan.innerHTML += '<p>' + colorString +'</p>';
+                            charSpan.innerHTML += '<p>'+ colorString +'</p>';
                             colorString = '';
                         }
                     }          // generate the character image string
