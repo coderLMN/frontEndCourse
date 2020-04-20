@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Coderlmn's Char Image Tool - enjoy</title>
+    <title>Coderlmn's Char Image Tool</title>
     <style>
         span {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-        }
-        canvas {
-            image-orientation: from-image;
         }
     </style>
 </head>
@@ -19,8 +16,26 @@
     <span id='char' style="font-family: monospace; line-height: 0; font-size: xx-small;font-weight: bolder;"></span>
     <script>
         var charSpan = document.getElementById('char');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
         var selectFile = function(element) {    //select image files within the photos directory
             var file = element.files[0];
+            getOrientation(file, function(orientation) {
+                alert('orientation: ' + orientation);
+                switch(orientation){
+
+                    case 8:
+                        context.rotate(90*Math.PI/180);
+                        break;
+                    case 3:
+                        context.rotate(180*Math.PI/180);
+                        break;
+                    case 6:
+                        context.rotate(-90*Math.PI/180);
+                        break;
+                    default: console.log('not ok: ', orientation);
+                }
+            });
             charSpan.innerHTML = '';
             var dimension = 150;            //dimension of the target image
             var fileLoader = new FileReader(), imageObj = new Image();
@@ -66,8 +81,7 @@
                     var wid = dimension;
                     var hei = Math.round(this.height*dimension/this.width);           //default drawing area
                     //use the canvas object to create the new resized image data
-                    var canvas = document.getElementById('canvas');
-                    var context = canvas.getContext('2d');
+
                     canvas.width = wid;
                     canvas.height  = hei;
                     context.clearRect(0,0,wid,hei);
@@ -86,7 +100,55 @@
                     }          // generate the character image string
                 }
             };
-        }
+            function getOrientation(file, callback) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+
+                    var view = new DataView(e.target.result);
+                    if (view.getUint16(0, false) != 0xFFD8)
+                    {
+                        return callback(-2);
+                    }
+                    var length = view.byteLength, offset = 2;
+                    while (offset < length)
+                    {
+                        if (view.getUint16(offset+2, false) <= 8) return callback(-1);
+                        var marker = view.getUint16(offset, false);
+                        offset += 2;
+                        if (marker == 0xFFE1)
+                        {
+                            if (view.getUint32(offset += 2, false) != 0x45786966)
+                            {
+                                return callback(-1);
+                            }
+
+                            var little = view.getUint16(offset += 6, false) == 0x4949;
+                            offset += view.getUint32(offset + 4, little);
+                            var tags = view.getUint16(offset, little);
+                            offset += 2;
+                            for (var i = 0; i < tags; i++)
+                            {
+                                if (view.getUint16(offset + (i * 12), little) == 0x0112)
+                                {
+                                    return callback(view.getUint16(offset + (i * 12) + 8, little));
+                                }
+                            }
+                        }
+                        else if ((marker & 0xFF00) != 0xFF00)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            offset += view.getUint16(offset, false);
+                        }
+                    }
+                    return callback(-1);
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        };
+
     </script>
 </body>
 </html>
