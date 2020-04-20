@@ -12,9 +12,6 @@
             font-size: 8px;
             font-weight: bolder;
         }
-        canvas {
-            image-orientation: from-image;
-        }
         input{
             background-color: darkslategray;
             color: white;
@@ -22,8 +19,8 @@
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <label class="fileContainer">Photo: </label> <input type="file" accept="image/*" id="file" onchange="selectFile(this)"/>
+    <label for="canvas">Click to rotate: </label><canvas id="canvas" onclick="rot()"></canvas>
+    <label for="file">Photo: </label> <input type="file" accept="image/*" id="file" onchange="selectFile(this)"/>
     <label for="dimension">Size:  </label><input id="dimension" type='number' accept="" value="150" min="50" max="300" step="10" onchange="setDim(this)"/>
     <button name="ok" type="submit" onclick="regen()">ok</button>
     <hr>
@@ -60,6 +57,9 @@
         var regen = function(){
             generate(imageObj);
         };
+        var rot = function(){
+            rotate(imageObj);
+        };
         var selectFile = function(element) {    //select image files within the photos directory
             var file = element.files[0];
                        //dimension of the target image
@@ -88,7 +88,6 @@
                 }
             };
         };
-
         var generate = function(imgobj){
             var wid = dimension;
             var hei = Math.round(imgobj.height*dimension/imgobj.width);           //default drawing area
@@ -111,7 +110,37 @@
                     colorString = '';
                 }
             }          // generate the character image string
-        }
+        };
+        var rotate = function(imgobj){
+            var hei = dimension;
+            var wid = Math.round(imgobj.height*dimension/imgobj.width);           //default drawing area
+            //use the canvas object to create the new resized image data
+            colorString = '';
+            charSpan.innerHTML = '';
+            canvas.width = wid;
+            canvas.height  = hei;
+            var scale = wid / imgobj.height; // how much to scale the image to fit
+
+            context.setTransform(
+                    0,scale, // x axis down the screen
+                    -scale,0, // y axis across the screen from right to left
+                    wid,    // x origin is on the right side of the canvas
+                    0         // y origin is at the top
+            );
+            context.drawImage(imgobj,0,0);
+//            context.setTransform(1,0,0,1,0,0); // restore default
+            var imageData = context.getImageData(0, 0, wid, hei);
+            var data = imageData.data;
+
+            for (var i = 4; i < data.length; i += 4) {
+                var avg = Math.round((data[i] + data[i+1] + data[i + 2]) / 3);
+                colorString += charColor[avg];
+                if(i%(wid*4) == 0) {
+                    charSpan.innerHTML += '<p>'+ colorString +'</p>';
+                    colorString = '';
+                }
+            }          // generate the character image string
+        };
     </script>
 </body>
 </html>
