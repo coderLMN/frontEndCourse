@@ -62,28 +62,18 @@
         };
         var selectFile = function(element) {    //select image files within the photos directory
             var file = element.files[0];
-                       //dimension of the target image
             var fileLoader = new FileReader();
-
-            //if it's a valid image file, feed fileloader with data from the image file
             if (file.type.match('image.*')) {
                 fileLoader.readAsDataURL(file);
             }
-            else{
-                console.log('This file : ' + file.name + ' is not a valid image file.');
-            }
-
             // when the fileloader has the file object, it passes data to the image object,
             // which will triggers the imageObj onload function once the image has loaded.
             fileLoader.onload = function() {
                 imageObj.src = this.result;
             };
-
             imageObj.onload = function() {
                 // Check for empty images
-                if(this.width == 0 || this.height == 0){
-                    console.log('Image is empty');
-                } else {
+                if(this.width > 0 || this.height > 0){
                     generate(this);
                 }
             };
@@ -92,35 +82,21 @@
             var wid = dimension;
             var hei = Math.round(imgobj.height*dimension/imgobj.width);           //default drawing area
             //use the canvas object to create the new resized image data
-            colorString = '';
-            charSpan.innerHTML = '';
             canvas.width = wid;
             canvas.height  = hei;
             context.clearRect(0,0,wid,hei);
-            //draw the resized image on the canvas -- it's a HTML 5 method
+            //draw the resized image on the canvas
             context.drawImage(imgobj, 0, 0, imgobj.width, imgobj.height, 0, 0, wid, hei);
-            var imageData = context.getImageData(0, 0, wid, hei);
-            var data = imageData.data;
-
-            for (var i = 4; i < data.length; i += 4) {
-                var avg = Math.round((data[i] + data[i+1] + data[i + 2]) / 3);
-                colorString += charColor[avg];
-                if(i%(dimension*4) == 0) {
-                    charSpan.innerHTML += '<p>'+ colorString +'</p>';
-                    colorString = '';
-                }
-            }          // generate the character image string
+            var imageData = context.getImageData(0, 0, wid, hei);             //get bitmap of the image
+            produce(imageData.data, wid);
         };
         var rotate = function(imgobj){
             var hei = dimension;
             var wid = Math.round(imgobj.height*dimension/imgobj.width);           //default drawing area
-            //use the canvas object to create the new resized image data
-            colorString = '';
-            charSpan.innerHTML = '';
+            //set transform to rotate the canvas
             canvas.width = wid;
             canvas.height  = hei;
             var scale = wid / imgobj.height; // how much to scale the image to fit
-
             context.setTransform(
                     0,scale, // x axis down the screen
                     -scale,0, // y axis across the screen from right to left
@@ -128,19 +104,21 @@
                     0         // y origin is at the top
             );
             context.drawImage(imgobj,0,0);
-//            context.setTransform(1,0,0,1,0,0); // restore default
-            var imageData = context.getImageData(0, 0, wid, hei);
-            var data = imageData.data;
-
+            var imageData = context.getImageData(0, 0, wid, hei);             //get bitmap
+            produce(imageData.data, wid);
+        };
+        var produce = function(data, wid){
+            colorString = '';
+            charSpan.innerHTML = '';      //clear previous output
             for (var i = 4; i < data.length; i += 4) {
-                var avg = Math.round((data[i] + data[i+1] + data[i + 2]) / 3);
-                colorString += charColor[avg];
+                var avg = Math.round((data[i] + data[i+1] + data[i + 2]) / 3);// calculate the gray scale of one pixel
+                colorString += charColor[avg];                                // get the corresponding character
                 if(i%(wid*4) == 0) {
-                    charSpan.innerHTML += '<p>'+ colorString +'</p>';
+                    charSpan.innerHTML += '<p>'+ colorString +'</p>';         // produce one line of the text image
                     colorString = '';
                 }
             }          // generate the character image string
-        };
+        }
     </script>
 </body>
 </html>
