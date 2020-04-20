@@ -7,141 +7,111 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            font-family: monospace;
+            line-height: 0;
+            font-size: 8px;
+            font-weight: bolder;
+        }
+        canvas {
+            image-orientation: from-image;
+        }
+        input{
+            background-color: darkslategray;
+            color: white;
         }
     </style>
 </head>
-<body style="width: 1000px;">
-    <input type="file" accept="image/*" id="file" onchange="selectFile(this)">
+<body>
     <canvas id="canvas"></canvas>
-    <span id='char' style="font-family: monospace; line-height: 0; font-size: xx-small;font-weight: bolder;"></span>
+    <label class="fileContainer">Photo: </label> <input type="file" accept="image/*" id="file" onchange="selectFile(this)"/>
+    <label for="dimension">Size:  </label><input id="dimension" type='number' accept="" value="150" min="50" max="300" step="10" onchange="setDim(this)"/>
+    <button name="ok" type="submit" onclick="regen()">ok</button>
+    <hr>
+    <span id='char'></span>
     <script>
         var charSpan = document.getElementById('char');
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
-        var selectFile = function(element) {    //select image files within the photos directory
-            var file = element.files[0];
-            getOrientation(file, function(orientation) {
-                alert('orientation: ' + orientation);
-                charSpan.innerHTML = '';
-                var charColor = [];
-                for(var n=0; n<=256; n++){
-                    if(n<10) charColor[n] = 'M';
-                    else if(n<20) charColor[n] = 'W';
-                    else if(n<40) charColor[n] = 'B';
-                    else if(n<60) charColor[n] = 'R';
-                    else if(n<80) charColor[n] = 'H';
-                    else if(n<100) charColor[n] = 'J';
-                    else if(n<120) charColor[n] = 'I';
-                    else if(n<140) charColor[n] = 't';
-                    else if(n<160) charColor[n] = 'r';
-                    else if(n<180) charColor[n] = '+';
-                    else if(n<200) charColor[n] = '-';
-                    else if(n<220) charColor[n] = ',';
-                    else if(n<240) charColor[n] = '.';
-                    else charColor[n] = '&nbsp;';
-                }                       // set replacing characters for the ranges of gray scales
-                var colorString = '';
-                var dimension = 150;            //dimension of the target image
-                var fileLoader = new FileReader(), imageObj = new Image();
+        var dimension = 150, imageObj = new Image();
+        var charColor = [];
+        for(var n=0; n<=256; n++){
+            if(n<10) charColor[n] = 'M';
+            else if(n<20) charColor[n] = 'W';
+            else if(n<40) charColor[n] = 'B';
+            else if(n<60) charColor[n] = 'R';
+            else if(n<80) charColor[n] = 'H';
+            else if(n<100) charColor[n] = 'J';
+            else if(n<120) charColor[n] = 'I';
+            else if(n<140) charColor[n] = 't';
+            else if(n<160) charColor[n] = 'r';
+            else if(n<180) charColor[n] = '+';
+            else if(n<200) charColor[n] = '~';
+            else if(n<220) charColor[n] = '-';
+            else if(n<240) charColor[n] = ':';
+            else charColor[n] = '&nbsp;';
+        }                       // set replacing characters for the ranges of gray scales
 
-                //if it's a valid image file, feed fileloader with data from the image file
-                if (file.type.match('image.*')) {
-                    fileLoader.readAsDataURL(file);
-                }
-                fileLoader.onload = function() {
-                    imageObj.src = this.result;
-                };
-
-                switch(orientation){
-                    case 8:
-                        context.rotate(90*Math.PI/180);
-                        break;
-                    case 3:
-                        context.rotate(180*Math.PI/180);
-                        break;
-                    case 6:
-                        context.rotate(-90*Math.PI/180);
-                        break;
-                    default: console.log('not ok: ', orientation);
-                }
-
-                imageObj.onload = function() {
-                    // Check for empty images
-                    if(this.width == 0 || this.height == 0){
-                        console.log('Image is empty');
-                    } else {
-                        var wid = dimension;
-                        var hei = Math.round(this.height*dimension/this.width);           //default drawing area
-                        //use the canvas object to create the new resized image data
-
-                        canvas.width = wid;
-                        canvas.height  = hei;
-                        context.clearRect(0,0,wid,hei);
-                        //draw the resized image on the canvas -- it's a HTML 5 method
-                        context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height, 0, 0, wid, hei);
-                        var imageData = context.getImageData(0, 0, wid, hei);
-                        var data = imageData.data;
-
-                        for (var i = 4; i < data.length; i += 4) {
-                            var avg = Math.round((data[i] + data[i+1] + data[i + 2]) / 3);
-                            colorString += charColor[avg];
-                            if(i%(dimension*4) == 0) {
-                                charSpan.innerHTML += '<p>'+ colorString +'</p>';
-                                colorString = '';
-                            }
-                        }          // generate the character image string
-                    }
-                };
-            });
-
-            function getOrientation(file, callback) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-
-                    var view = new DataView(e.target.result);
-                    if (view.getUint16(0, false) != 0xFFD8)
-                    {
-                        return callback(-2);
-                    }
-                    var length = view.byteLength, offset = 2;
-                    while (offset < length)
-                    {
-                        if (view.getUint16(offset+2, false) <= 8) return callback(-1);
-                        var marker = view.getUint16(offset, false);
-                        offset += 2;
-                        if (marker == 0xFFE1)
-                        {
-                            if (view.getUint32(offset += 2, false) != 0x45786966)
-                            {
-                                return callback(-1);
-                            }
-
-                            var little = view.getUint16(offset += 6, false) == 0x4949;
-                            offset += view.getUint32(offset + 4, little);
-                            var tags = view.getUint16(offset, little);
-                            offset += 2;
-                            for (var i = 0; i < tags; i++)
-                            {
-                                if (view.getUint16(offset + (i * 12), little) == 0x0112)
-                                {
-                                    return callback(view.getUint16(offset + (i * 12) + 8, little));
-                                }
-                            }
-                        }
-                        else if ((marker & 0xFF00) != 0xFF00)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            offset += view.getUint16(offset, false);
-                        }
-                    }
-                    return callback(-1);
-                };
-                reader.readAsArrayBuffer(file);
+        var setDim = function(element){
+            var dim = parseInt(element.value);
+            if(dim){
+                dimension = dim;
             }
         };
+        var regen = function(){
+            generate(imageObj);
+        };
+        var selectFile = function(element) {    //select image files within the photos directory
+            var file = element.files[0];
+                       //dimension of the target image
+            var fileLoader = new FileReader();
+
+            //if it's a valid image file, feed fileloader with data from the image file
+            if (file.type.match('image.*')) {
+                fileLoader.readAsDataURL(file);
+            }
+            else{
+                console.log('This file : ' + file.name + ' is not a valid image file.');
+            }
+
+            // when the fileloader has the file object, it passes data to the image object,
+            // which will triggers the imageObj onload function once the image has loaded.
+            fileLoader.onload = function() {
+                imageObj.src = this.result;
+            };
+
+            imageObj.onload = function() {
+                // Check for empty images
+                if(this.width == 0 || this.height == 0){
+                    console.log('Image is empty');
+                } else {
+                    generate(this);
+                }
+            };
+        };
+
+        var generate = function(imgobj){
+            var wid = dimension;
+            var hei = Math.round(imgobj.height*dimension/imgobj.width);           //default drawing area
+            //use the canvas object to create the new resized image data
+            colorString = '';
+            charSpan.innerHTML = '';
+            canvas.width = wid;
+            canvas.height  = hei;
+            context.clearRect(0,0,wid,hei);
+            //draw the resized image on the canvas -- it's a HTML 5 method
+            context.drawImage(imgobj, 0, 0, imgobj.width, imgobj.height, 0, 0, wid, hei);
+            var imageData = context.getImageData(0, 0, wid, hei);
+            var data = imageData.data;
+
+            for (var i = 4; i < data.length; i += 4) {
+                var avg = Math.round((data[i] + data[i+1] + data[i + 2]) / 3);
+                colorString += charColor[avg];
+                if(i%(dimension*4) == 0) {
+                    charSpan.innerHTML += '<p>'+ colorString +'</p>';
+                    colorString = '';
+                }
+            }          // generate the character image string
+        }
     </script>
 </body>
 </html>
